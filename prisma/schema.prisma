@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  login     String   @unique
+  password  String
+  firstName String
+  name      String
+  role      RoleEnum @default(STUDENT)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Group      UserGroup[]
+  Rating     Rating[]
+  ResultUser ResultUser[]
+}
+
+model Group {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  User UserGroup[]
+}
+
+model UserGroup {
+  userId  Int
+  groupId Int
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  User  User?  @relation(fields: [userId], references: [id])
+  Group Group? @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+model Topic {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  File       File[]
+  Question   Question[]
+  ResultUser ResultUser[]
+}
+
+model File {
+  id      Int    @id @default(autoincrement())
+  url     String
+  type    String
+  topicId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Topic Topic? @relation(fields: [topicId], references: [id])
+}
+
+model Question {
+  id      Int    @id @default(autoincrement())
+  text    String
+  topicId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Answer Answer[]
+  Topic  Topic?   @relation(fields: [topicId], references: [id])
+}
+
+model Answer {
+  id         Int     @id @default(autoincrement())
+  text       String
+  correct    Boolean
+  questionId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Question Question? @relation(fields: [questionId], references: [id])
+}
+
+model Rating {
+  id     Int  @id @default(autoincrement())
+  rating Int
+  userId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  User User? @relation(fields: [userId], references: [id])
+}
+
+model ResultUser {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  correct   Int
+  incorrect Int
+  userId    Int?
+  topicId   Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  User  User?  @relation(fields: [userId], references: [id])
+  Topic Topic? @relation(fields: [topicId], references: [id])
+}
+
+enum RoleEnum {
+  ADMIN
+  TEACHER
+  STUDENT
+}
