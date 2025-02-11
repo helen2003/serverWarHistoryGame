@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthUserDto } from './dto/auth-user.dto';
 import { TokenInterface } from './interface/token.interface';
 import { RegistationDto } from './dto/registation-dto.dto';
@@ -14,6 +14,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @ApiOperation({ summary: 'Авторизация' })
+  @ApiBody({ type: AuthUserDto })
   @ApiResponse({ status: 200, type: TokenInterface })
   @Post('/login')
   login(@Req() req: Request): Promise<TokenInterface> {
@@ -26,5 +27,17 @@ export class AuthController {
   @Post('/registration')
   registration(@Body() userDto: RegistationDto): Promise<TokenInterface> {
     return this.authService.registration(userDto);
+  }
+
+  @ApiOperation({ summary: 'Обновление токенов' })
+  @ApiBody({
+    type: class token {
+      token: string;
+    },
+  })
+  @ApiResponse({ status: 200, type: TokenInterface })
+  @Post('/refresh-tokens')
+  tokenRefresh(@Body() token: string): Promise<TokenInterface> {
+    return this.authService.refreshTokens(token);
   }
 }

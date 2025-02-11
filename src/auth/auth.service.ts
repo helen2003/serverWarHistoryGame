@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   async registration(userDto: RegistationDto): Promise<TokenInterface> {
-    const user = await this.userService.createUser(userDto);
+    const user = await this.userService.create(userDto);
     return this.getTokens({
       sub: user.id,
       login: user.login,

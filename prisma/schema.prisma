@@ -14,17 +14,20 @@ model User {
   firstName String
   name      String
   role      RoleEnum @default(STUDENT)
+  rankId    Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Group      UserGroup[]
-  Rating     Rating[]
-  ResultUser ResultUser[]
+  Rank Rank? @relation(fields: [rankId], references: [id])
+
+  Achievement Achievement[]
+  Testing     Testing[]
+  Rating      Rating[]
 }
 
-model Group {
+model Rank {
   id   Int    @id @default(autoincrement())
   name String
 
@@ -32,24 +35,52 @@ model Group {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  User UserGroup[]
+  User User[]
 }
 
-model UserGroup {
-  userId  Int
-  groupId Int
+model Disciplina {
+  id        Int    @id @default(autoincrement())
+  name      String
+  shortName String
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  User  User?  @relation(fields: [userId], references: [id])
-  Group Group? @relation(fields: [groupId], references: [id])
-
-  @@id([userId, groupId])
+  Topic Topic[]
 }
 
 model Topic {
+  id           Int    @id @default(autoincrement())
+  name         String
+  disciplinaId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Disciplina Disciplina? @relation(fields: [disciplinaId], references: [id])
+
+  Material Material[]
+  Question Question[]
+  Testing  Testing[]
+}
+
+model Material {
+  id             Int    @id @default(autoincrement())
+  url            String
+  typeMaterialId Int?
+  topicId        Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  TypeMaterial TypeMaterial? @relation(fields: [typeMaterialId], references: [id])
+  Topic        Topic?        @relation(fields: [topicId], references: [id])
+}
+
+model TypeMaterial {
   id   Int    @id @default(autoincrement())
   name String
 
@@ -57,41 +88,146 @@ model Topic {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  File       File[]
-  Question   Question[]
-  ResultUser ResultUser[]
+  Material Material[]
 }
 
-model File {
-  id      Int    @id @default(autoincrement())
-  url     String
-  type    String
+model TypeTask {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Question Question[]
+}
+
+model TypeMiniGame {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Question Question[]
+}
+
+model ScaleImportant {
+  id         Int    @id @default(autoincrement())
+  name       String
+  equivalent Float
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Question Question[]
+}
+
+model ScaleRecognition {
+  id         Int    @id @default(autoincrement())
+  name       String
+  equivalent Float
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ResultRecognition ResultRecognition[]
+}
+
+model ModelNS {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ParameterNS   ParameterNS[]
+  CalculationNS CalculationNS[]
+}
+
+model TypeReward {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Reward Reward[]
+}
+
+model Reward {
+  id           Int    @id @default(autoincrement())
+  name         String
+  description  String
+  typeRewardId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  TypeReward TypeReward? @relation(fields: [typeRewardId], references: [id])
+
+  Achievement Achievement[]
+}
+
+model Achievement {
+  id       Int  @id @default(autoincrement())
+  rewardId Int?
+  userId   Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  Reward Reward? @relation(fields: [rewardId], references: [id])
+  User   User?   @relation(fields: [userId], references: [id])
+}
+
+model Question {
+  id               Int    @id @default(autoincrement())
+  text             String
+  scaleImportantId Int?
+  typeMiniGameId   Int?
+  typeTaskId       Int?
+  topicId          Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ScaleImportant ScaleImportant? @relation(fields: [scaleImportantId], references: [id])
+  TypeMiniGame   TypeMiniGame?   @relation(fields: [typeMiniGameId], references: [id])
+  TypeTask       TypeTask?       @relation(fields: [typeTaskId], references: [id])
+  Topic          Topic?          @relation(fields: [topicId], references: [id])
+
+  Answer           Answer[]
+  ResponceTesting  ResponceTesting[]
+  ResponceTemplate ResponceTemplate[]
+}
+
+model Testing {
+  id      Int  @id @default(autoincrement())
   topicId Int?
+  userId  Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
   Topic Topic? @relation(fields: [topicId], references: [id])
-}
+  User  User?  @relation(fields: [userId], references: [id])
 
-model Question {
-  id      Int    @id @default(autoincrement())
-  text    String
-  topicId Int?
-
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
-
-  Answer Answer[]
-  Topic  Topic?   @relation(fields: [topicId], references: [id])
+  ResponceTesting ResponceTesting[]
 }
 
 model Answer {
-  id         Int     @id @default(autoincrement())
+  id         Int    @id @default(autoincrement())
   text       String
-  correct    Boolean
   questionId Int?
 
   created_at DateTime  @default(now())
@@ -101,32 +237,93 @@ model Answer {
   Question Question? @relation(fields: [questionId], references: [id])
 }
 
-model Rating {
-  id     Int  @id @default(autoincrement())
-  rating Int
-  userId Int?
+model ResponceTesting {
+  id         Int      @id @default(autoincrement())
+  text       String
+  time       DateTime
+  correct    Boolean
+  testingId  Int?
+  questionId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  User User? @relation(fields: [userId], references: [id])
+  Testing  Testing?  @relation(fields: [testingId], references: [id])
+  Question Question? @relation(fields: [questionId], references: [id])
+
+  ResultRecognition ResultRecognition[]
+  CalculationNS     CalculationNS[]
 }
 
-model ResultUser {
-  id        Int      @id @default(autoincrement())
-  time      DateTime
-  correct   Int
-  incorrect Int
-  userId    Int?
-  topicId   Int?
+model ResponceTemplate {
+  id         Int    @id @default(autoincrement())
+  text       String
+  questionId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  User  User?  @relation(fields: [userId], references: [id])
-  Topic Topic? @relation(fields: [topicId], references: [id])
+  Question Question? @relation(fields: [questionId], references: [id])
+
+  ResultRecognition ResultRecognition[]
+}
+
+model ResultRecognition {
+  id                 Int    @id @default(autoincrement())
+  text               String
+  responceTemplateId Int?
+  scaleRecognitionId Int?
+  responceTestingId  Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ResponceTemplate ResponceTemplate? @relation(fields: [responceTemplateId], references: [id])
+  ScaleRecognition ScaleRecognition? @relation(fields: [scaleRecognitionId], references: [id])
+  ResponceTesting  ResponceTesting?  @relation(fields: [responceTestingId], references: [id])
+}
+
+model ParameterNS {
+  id        Int  @id @default(autoincrement())
+  modelNSId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ModelNS ModelNS? @relation(fields: [modelNSId], references: [id])
+}
+
+model CalculationNS {
+  id                Int  @id @default(autoincrement())
+  result            Int
+  modelNSId         Int?
+  responceTestingId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  ModelNS         ModelNS?         @relation(fields: [modelNSId], references: [id])
+  ResponceTesting ResponceTesting? @relation(fields: [responceTestingId], references: [id])
+
+  Rating Rating?
+}
+
+model Rating {
+  id              Int  @id @default(autoincrement())
+  calculationNSId Int  @unique
+  userId          Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  CalculationNS CalculationNS @relation(fields: [calculationNSId], references: [id])
+  User          User?         @relation(fields: [userId], references: [id])
 }
 
 enum RoleEnum {

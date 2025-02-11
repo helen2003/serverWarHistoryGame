@@ -1,5 +1,6 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, HideField, Int, ObjectType } from '@nestjs/graphql';
 import { RoleEnum, User } from '@prisma/client';
+import { RankModel } from 'src/rank/model/rank.model';
 
 @ObjectType()
 export class UserModel implements User {
@@ -9,7 +10,7 @@ export class UserModel implements User {
   @Field(() => String)
   login: string;
 
-  @Field(() => String)
+  // @HideField()
   password: string;
 
   @Field(() => String)
@@ -21,12 +22,18 @@ export class UserModel implements User {
   @Field()
   role: RoleEnum;
 
+  @Field(() => Int)
+  rankId: number;
+
+  @Field(() => [RankModel], { nullable: true })
+  Rank: RankModel[];
+
   @Field(() => Date)
   created_at: Date;
 
   @Field(() => Date)
-  deleted_at: Date;
-
-  @Field(() => Date)
   updated_at: Date;
+
+  // @HideField()
+  deleted_at: Date;
 }
