@@ -1,4 +1,4 @@
-import { Field, HideField, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { RoleEnum, User } from '@prisma/client';
 import { RankModel } from 'src/rank/model/rank.model';
 
@@ -25,8 +25,8 @@ export class UserModel implements User {
   @Field(() => Int)
   rankId: number;
 
-  @Field(() => [RankModel], { nullable: true })
-  Rank: RankModel[];
+  @Field(() => RankModel, {nullable: true})
+  Rank?: RankModel;
 
   @Field(() => Date)
   created_at: Date;

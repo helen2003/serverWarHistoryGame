@@ -1,16 +1,16 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Topic } from '@prisma/client';
+import { Achievement, TypeReward } from '@prisma/client';
 
 @ObjectType()
-export class TopicModel implements Topic {
+export class AchievementModel implements Achievement {
   @Field(() => Int)
   id: number;
 
-  @Field(() => String)
-  name: string;
+  @Field(() => Int)
+  rewardId: number;
 
   @Field(() => Int)
-  disciplinaId: number;
+  userId: number;
 
   @Field(() => Date)
   created_at: Date;

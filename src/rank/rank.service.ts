@@ -21,9 +21,9 @@ export class RankService {
     return this.prisma.rank.create({ data: { name: name } });
   }
 
-  async findOne(rankId: number): Promise<Rank> {
+  async findOne(rankId: number): Promise<Rank | null> {
     return this.prisma.rank.findUnique({
-      where: { id: rankId },
+      where: { id: rankId || 0},
     });
   }
 

@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { RankService } from './rank.service';
 import { RankModel } from './model/rank.model';
 import { Rank } from '@prisma/client';
@@ -20,13 +20,13 @@ export class RankResolver {
   @Mutation(() => RankModel)
   updateRank(
     @Args('name') name: string,
-    @Args('id') id: number,
+    @Args('id', { type: () => Int }) id: number,
   ): Promise<Rank> {
     return this.rankService.update(id, name);
   }
 
   @Mutation(() => RankModel)
-  deleteRank(@Args('id') id: number): Promise<Rank> {
+  deleteRank(@Args('id', { type: () => Int }) id: number): Promise<Rank> {
     return this.rankService.delete(id);
   }
 }

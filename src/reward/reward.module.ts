@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { RewardService } from './reward.service';
 import { RewardResolver } from './reward.resolver';
+import { PrismaService } from 'src/common/prisma/prisma.service';
+import { TypeRewardModule } from 'src/type-reward/type-reward.module';
 
 @Module({
-  providers: [RewardResolver, RewardService],
+  providers: [RewardResolver, RewardService, PrismaService],
+  imports: [TypeRewardModule],
+  exports: [RewardService]
 })
 export class RewardModule {}

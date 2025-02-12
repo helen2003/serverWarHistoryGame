@@ -1,24 +1,35 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TopicService } from './topic.service';
-import { Roles } from 'src/common/decorators/roles.decorator';
 import { TopicModel } from './model/topic.model';
-import { CreateTopicInput } from './dto/create-topic.dto';
+import { Topic } from '@prisma/client';
+import { UpdateTopicInput } from './dto/update-model.input';
 
 @Resolver()
 export class TopicResolver {
   constructor(private readonly topicService: TopicService) {}
 
-  @Roles('TEACHER')
-  @Mutation(() => TopicModel)
-  createTopic(
-    @Args('createTopicInput') createTopicInput: CreateTopicInput,
-  ) {
-    return this.topicService.create(createTopicInput);
+  @Query(() => [TopicModel])
+  getTopicAll(): Promise<Topic[]> {
+    return this.topicService.findAll();
   }
 
-  @Roles('TEACHER', 'STUDENT')
   @Mutation(() => TopicModel)
-  findAllTopic() {
-    return this.topicService.findAll();
+  createTopic(
+    @Args('name') name: string,
+    @Args('disciplinaId', { type: () => Int }) disciplinaId: number,
+  ): Promise<Topic> {
+    return this.topicService.create(name, disciplinaId);
+  }
+
+  @Mutation(() => TopicModel)
+  updateTopic(
+    @Args('updateTopicData') updateTopicData: UpdateTopicInput,
+  ): Promise<Topic> {
+    return this.topicService.update(updateTopicData);
+  }
+
+  @Mutation(() => TopicModel)
+  deleteTopic(@Args('id', { type: () => Int }) id: number): Promise<Topic> {
+    return this.topicService.delete(id);
   }
 }

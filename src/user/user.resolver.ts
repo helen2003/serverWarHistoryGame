@@ -3,6 +3,7 @@ import {
   Int,
   Mutation,
   Parent,
+  Query,
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
@@ -57,8 +58,13 @@ export class UserResolver {
     return this.userService.delete(user);
   }
 
-  @ResolveField('Rank', () => RankModel)
-  getRank(@Parent() user: UserModel): Promise<Rank> {
+  @Query(() => UserModel)
+  getUserOne(@Args('id', { type: () => Int }) id: number): Promise<User> {
+    return this.userService.getUserById(id);
+  }
+
+  @ResolveField('Rank', () => RankModel, { nullable: true })
+  getRank(@Parent() user: UserModel): Promise<Rank | null> {
     const { rankId } = user;
     return this.rankService.findOne(rankId);
   }

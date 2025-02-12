@@ -5,6 +5,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Module({
   providers: [RankResolver, RankService, PrismaService],
-  exports: [RankModule]
+  exports: [RankService]
 })
 export class RankModule {}

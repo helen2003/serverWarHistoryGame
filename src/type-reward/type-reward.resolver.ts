@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TypeRewardService } from './type-reward.service';
 import { TypeRewardModel } from './model/type-reward.model';
 import { TypeReward } from '@prisma/client';
@@ -7,7 +7,7 @@ import { TypeReward } from '@prisma/client';
 export class TypeRewardResolver {
   constructor(private readonly typeRewardService: TypeRewardService) {}
 
-  @Query(() => TypeRewardModel)
+  @Query(() => [TypeRewardModel])
   getTypeRewardAll(): Promise<TypeReward[]> {
     return this.typeRewardService.findAll();
   }
@@ -20,13 +20,13 @@ export class TypeRewardResolver {
   @Mutation(() => TypeRewardModel)
   updateTypeReward(
     @Args('name') name: string,
-    @Args('id') id: number,
+    @Args('id', { type: () => Int }) id: number,
   ): Promise<TypeReward> {
     return this.typeRewardService.update(id, name);
   }
 
   @Mutation(() => TypeRewardModel)
-  deleteTypeReward(@Args('id') id: number): Promise<TypeReward> {
+  deleteTypeReward(@Args('id', { type: () => Int }) id: number): Promise<TypeReward> {
     return this.typeRewardService.delete(id);
   }
 }

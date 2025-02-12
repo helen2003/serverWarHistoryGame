@@ -1,0 +1,97 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RankModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserModel {
+  id: Int!
+  login: String!
+  firstName: String!
+  name: String!
+  role: String!
+  rankId: Int!
+  Rank: RankModel
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TopicModel {
+  id: Int!
+  name: String!
+  disciplinaId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TypeRewardModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime!
+}
+
+type RewardModel {
+  id: Int!
+  name: String!
+  description: String!
+  typeRewardId: Int!
+  TypeReward: TypeRewardModel!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Query {
+  getUserOne(id: Int!): UserModel!
+  getRankAll: RankModel!
+  getTopicAll: [TopicModel!]!
+  getTypeRewardAll: [TypeRewardModel!]!
+  getRewardAll: [RewardModel!]!
+  getRewardAOne(id: Int!): RewardModel!
+}
+
+type Mutation {
+  updateUser(updateUserData: UpdateUserInput!): UserModel!
+  updatePassword(password: String!): UserModel!
+  updateRole(userId: Int!, role: String!): UserModel!
+  deleteAccount: UserModel!
+  createRank(name: String!): RankModel!
+  updateRank(name: String!, id: Int!): RankModel!
+  deleteRank(id: Int!): RankModel!
+  createTopic(name: String!, disciplinaId: Int!): TopicModel!
+  updateTopic(updateTopicData: UpdateTopicInput!): TopicModel!
+  deleteTopic(id: Int!): TopicModel!
+  createTypeReward(name: String!): TypeRewardModel!
+  updateTypeReward(name: String!, id: Int!): TypeRewardModel!
+  deleteTypeReward(id: Int!): TypeRewardModel!
+  createReward(createRewardData: CreateUpdateRewardInput!): RewardModel!
+  updateReward(id: Int!, createRewardData: CreateUpdateRewardInput!): RewardModel!
+  deleteReward(id: Int!): RewardModel!
+}
+
+input UpdateUserInput {
+  login: String!
+}
+
+input UpdateTopicInput {
+  name: String!
+  disciplinaId: Int!
+  id: Int!
+}
+
+input CreateUpdateRewardInput {
+  name: String!
+  description: String!
+  typeRewardId: Int!
+}

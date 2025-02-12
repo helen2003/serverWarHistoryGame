@@ -5,6 +5,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Module({
   providers: [TypeRewardResolver, TypeRewardService, PrismaService],
-  exports: [TypeRewardModule],
+  exports: [TypeRewardService],
 })
 export class TypeRewardModule {}

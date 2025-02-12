@@ -7,4 +7,7 @@ export class UpdateUserInput extends PickType(UserModel, [
   'firstName',
   'name',
   'rankId',
-]) {}
+]) {
+  @Field()
+  login: string;
+}

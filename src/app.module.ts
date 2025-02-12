@@ -10,6 +10,7 @@ import { TopicModule } from './topic/topic.module';
 import { RankModule } from './rank/rank.module';
 import { TypeRewardModule } from './type-reward/type-reward.module';
 import { RewardModule } from './reward/reward.module';
+import { AchievementModule } from './achievement/achievement.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { RewardModule } from './reward/reward.module';
     RankModule,
     TypeRewardModule,
     RewardModule,
+    AchievementModule,
   ],
 })
 export class AppModule {}
