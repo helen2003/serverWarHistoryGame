@@ -1,16 +1,40 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { TopicService } from './topic.service';
 import { TopicModel } from './model/topic.model';
-import { Topic } from '@prisma/client';
+import { TheoryMaterial, Topic } from '@prisma/client';
 import { UpdateTopicInput } from './dto/update-model.input';
+import { TheoryMaterialModel } from 'src/theory-material/model/theory-material.model';
+import { TheoryMaterialService } from 'src/theory-material/theory-material.service';
 
-@Resolver()
+@Resolver(() => TopicModel)
 export class TopicResolver {
-  constructor(private readonly topicService: TopicService) {}
+  constructor(
+    private readonly topicService: TopicService,
+    private theoryMaterialSevise: TheoryMaterialService,
+  ) {}
 
   @Query(() => [TopicModel])
   getTopicAll(): Promise<Topic[]> {
     return this.topicService.findAll();
+  }
+
+  @Query(() => TopicModel)
+  getTopicOne(id: number): Promise<Topic> {
+    return this.topicService.findOne(id);
+  }
+
+  @ResolveField('TheoryMaterial', () => [TheoryMaterialModel], { nullable: true })
+  getTheoryMaterial(@Parent() topic: TopicModel): Promise<TheoryMaterial[]> {
+    const { id } = topic;
+    return this.theoryMaterialSevise.gelAll({ topicId: id, typeFileId: null });
   }
 
   @Mutation(() => TopicModel)

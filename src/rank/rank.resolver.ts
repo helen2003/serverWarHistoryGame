@@ -7,7 +7,7 @@ import { Rank } from '@prisma/client';
 export class RankResolver {
   constructor(private readonly rankService: RankService) {}
 
-  @Query(() => RankModel)
+  @Query(() => [RankModel])
   getRankAll(): Promise<Rank[]> {
     return this.rankService.findAll();
   }

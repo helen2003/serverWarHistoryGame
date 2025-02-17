@@ -13,13 +13,13 @@ export function ApiOneFile() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка одного файла' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto }),
-    UseInterceptors(FileInterceptor('image')),
+    UseInterceptors(FileInterceptor('file')),
     ApiConsumes('multipart/form-data'),
     ApiBody({
       schema: {
         type: 'object',
         properties: {
-          image: {
+          file: {
             type: 'string',
             format: 'binary',
           },
@@ -33,13 +33,13 @@ export function ApiManyFiles() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка нескольких файлов' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto, isArray: true }),
-    UseInterceptors(FilesInterceptor('image')),
+    UseInterceptors(FilesInterceptor('file')),
     ApiConsumes('multipart/form-data'),
     ApiBody({
       schema: {
         type: 'object',
         properties: {
-          image: {
+          file: {
             type: 'array',
             items: {
               type: 'string',

@@ -25,7 +25,7 @@ export class UserModel implements User {
   @Field(() => Int)
   rankId: number;
 
-  @Field(() => RankModel, {nullable: true})
+  @Field(() => RankModel)
   Rank?: RankModel;
 
   @Field(() => Date)

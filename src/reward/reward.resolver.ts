@@ -47,9 +47,9 @@ export class RewardResolver {
   @Mutation(() => RewardModel)
   updateReward(
     @Args('id', { type: () => Int }) id: number,
-    @Args('createRewardData') createRewardInput: CreateUpdateRewardInput,
+    @Args('updateRewardData') updateRewardInput: CreateUpdateRewardInput,
   ): Promise<Reward> {
-    return this.rewardService.update(id, createRewardInput);
+    return this.rewardService.update(id, updateRewardInput);
   }
 
   @Mutation(() => RewardModel)

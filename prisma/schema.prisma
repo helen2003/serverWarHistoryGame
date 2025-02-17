@@ -61,26 +61,40 @@ model Topic {
 
   Disciplina Disciplina? @relation(fields: [disciplinaId], references: [id])
 
-  Material Material[]
-  Question Question[]
-  Testing  Testing[]
+  TheoryMaterial TheoryMaterial[]
+  Question       Question[]
+  Testing        Testing[]
 }
 
-model Material {
-  id             Int    @id @default(autoincrement())
-  url            String
-  typeMaterialId Int?
-  topicId        Int?
+model TheoryMaterial {
+  id         Int    @id @default(autoincrement())
+  url        String
+  topicId    Int?
+  typeFileId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  TypeMaterial TypeMaterial? @relation(fields: [typeMaterialId], references: [id])
-  Topic        Topic?        @relation(fields: [topicId], references: [id])
+  Topic    Topic?    @relation(fields: [topicId], references: [id])
+  TypeFile TypeFile? @relation(fields: [typeFileId], references: [id])
 }
 
-model TypeMaterial {
+model PracticMaterial {
+  id         Int    @id @default(autoincrement())
+  url        String
+  typeFileId Int?
+  questionId Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  TypeFile TypeFile? @relation(fields: [typeFileId], references: [id])
+  Question Question? @relation(fields: [questionId], references: [id])
+}
+
+model TypeFile {
   id   Int    @id @default(autoincrement())
   name String
 
@@ -88,7 +102,8 @@ model TypeMaterial {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Material Material[]
+  TheoryMaterial  TheoryMaterial[]
+  PracticMaterial PracticMaterial[]
 }
 
 model TypeTask {
@@ -184,8 +199,8 @@ model Achievement {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Reward Reward? @relation(fields: [rewardId], references: [id])
-  User   User?   @relation(fields: [userId], references: [id])
+  Reward Reward? @relation(fields: [rewardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Question {
@@ -205,9 +220,11 @@ model Question {
   TypeTask       TypeTask?       @relation(fields: [typeTaskId], references: [id])
   Topic          Topic?          @relation(fields: [topicId], references: [id])
 
-  Answer           Answer[]
-  ResponceTesting  ResponceTesting[]
-  ResponceTemplate ResponceTemplate[]
+  ResponceTemplate ResponceTemplate?
+
+  Answer          Answer[]
+  ResponceTesting ResponceTesting[]
+  PracticMaterial PracticMaterial[]
 }
 
 model Testing {
@@ -220,7 +237,7 @@ model Testing {
   deleted_at DateTime?
 
   Topic Topic? @relation(fields: [topicId], references: [id])
-  User  User?  @relation(fields: [userId], references: [id])
+  User  User?  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   ResponceTesting ResponceTesting[]
 }
@@ -234,7 +251,7 @@ model Answer {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Question Question? @relation(fields: [questionId], references: [id])
+  Question Question? @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model ResponceTesting {
@@ -249,8 +266,8 @@ model ResponceTesting {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Testing  Testing?  @relation(fields: [testingId], references: [id])
-  Question Question? @relation(fields: [questionId], references: [id])
+  Testing  Testing?  @relation(fields: [testingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Question Question? @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   ResultRecognition ResultRecognition[]
   CalculationNS     CalculationNS[]
@@ -259,13 +276,13 @@ model ResponceTesting {
 model ResponceTemplate {
   id         Int    @id @default(autoincrement())
   text       String
-  questionId Int?
+  questionId Int?   @unique
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Question Question? @relation(fields: [questionId], references: [id])
+  Question Question? @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   ResultRecognition ResultRecognition[]
 }
@@ -283,7 +300,7 @@ model ResultRecognition {
 
   ResponceTemplate ResponceTemplate? @relation(fields: [responceTemplateId], references: [id])
   ScaleRecognition ScaleRecognition? @relation(fields: [scaleRecognitionId], references: [id])
-  ResponceTesting  ResponceTesting?  @relation(fields: [responceTestingId], references: [id])
+  ResponceTesting  ResponceTesting?  @relation(fields: [responceTestingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model ParameterNS {
@@ -294,7 +311,7 @@ model ParameterNS {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  ModelNS ModelNS? @relation(fields: [modelNSId], references: [id])
+  ModelNS ModelNS? @relation(fields: [modelNSId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model CalculationNS {

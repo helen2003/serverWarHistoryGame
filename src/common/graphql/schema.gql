@@ -26,10 +26,20 @@ type UserModel {
   updated_at: DateTime!
 }
 
+type TheoryMaterialModel {
+  id: Int!
+  url: String!
+  topicId: Int!
+  typeFileId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type TopicModel {
   id: Int!
   name: String!
   disciplinaId: Int!
+  TheoryMaterial: [TheoryMaterialModel!]
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -52,13 +62,39 @@ type RewardModel {
   updated_at: DateTime!
 }
 
+type TypeMiniGameModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TypeTaskModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TypeFileModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type Query {
   getUserOne(id: Int!): UserModel!
-  getRankAll: RankModel!
+  getRankAll: [RankModel!]!
   getTopicAll: [TopicModel!]!
+  getTopicOne: TopicModel!
+  getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
   getTypeRewardAll: [TypeRewardModel!]!
   getRewardAll: [RewardModel!]!
   getRewardAOne(id: Int!): RewardModel!
+  getMiniGameAll: [TypeMiniGameModel!]!
+  getTypeTaskAll: [TypeTaskModel!]!
+  getTypeFileAll: [TypeFileModel!]!
 }
 
 type Mutation {
@@ -72,12 +108,17 @@ type Mutation {
   createTopic(name: String!, disciplinaId: Int!): TopicModel!
   updateTopic(updateTopicData: UpdateTopicInput!): TopicModel!
   deleteTopic(id: Int!): TopicModel!
+  updateTheoryMaterialId(idFiles: [Int!]!, idTopic: Int!): Int!
+  deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createTypeReward(name: String!): TypeRewardModel!
   updateTypeReward(name: String!, id: Int!): TypeRewardModel!
   deleteTypeReward(id: Int!): TypeRewardModel!
   createReward(createRewardData: CreateUpdateRewardInput!): RewardModel!
-  updateReward(id: Int!, createRewardData: CreateUpdateRewardInput!): RewardModel!
+  updateReward(id: Int!, updateRewardData: CreateUpdateRewardInput!): RewardModel!
   deleteReward(id: Int!): RewardModel!
+  createTypeTask(name: String!): TypeTaskModel!
+  updateTypeTask(name: String!, id: Int!): TypeTaskModel!
+  deleteTypeTask(id: Int!): TypeTaskModel!
 }
 
 input UpdateUserInput {
