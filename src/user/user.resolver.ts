@@ -72,7 +72,7 @@ export class UserResolver {
     return this.rankService.findOne(rankId);
   }
 
-  @ResolveField('Achievement', () => [AchievementModel])
+  @ResolveField('Achievement', () => [AchievementModel], { nullable: 'itemsAndList' })
   getAchievment(@Parent() user: UserModel): Promise<Achievement[]> {
     const { id } = user;
     return this.achievementService.findAll({ rewardId: null, userId: id });

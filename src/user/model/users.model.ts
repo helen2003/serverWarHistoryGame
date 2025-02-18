@@ -29,7 +29,7 @@ export class UserModel implements User {
   @Field(() => RankModel)
   Rank?: RankModel;
 
-  @Field(() => [AchievementModel], { nullable: 'itemsAndList' })
+  @Field(() => [AchievementModel])
   Achievement?: AchievementModel[];
 
   @Field(() => Date)

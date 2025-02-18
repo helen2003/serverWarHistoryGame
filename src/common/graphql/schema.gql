@@ -51,7 +51,7 @@ type UserModel {
   role: String!
   rankId: Int!
   Rank: RankModel
-  Achievement: [AchievementModel!]!
+  Achievement: [AchievementModel]
   created_at: DateTime!
   updated_at: DateTime!
 }
