@@ -6,12 +6,15 @@ import {
   PipeTransform,
 } from '@nestjs/common';
 
-function checkFile(file: Express.Multer.File): boolean {
+function checkFile(
+  file: Express.Multer.File,
+  extensions: Array<string>,
+): boolean {
   if (file.size <= 2097152) {
     let file_extension = file.originalname.slice(
       (Math.max(0, file.originalname.lastIndexOf('.')) || Infinity) + 1,
     );
-    if (!['mp3', 'mp4', 'jpg', 'epub', 'png'].includes(file_extension))
+    if (!extensions.includes(file_extension))
       throw new HttpException(
         'Недопустимое расширение файла.',
         HttpStatus.BAD_REQUEST,
@@ -27,17 +30,26 @@ function checkFile(file: Express.Multer.File): boolean {
 
 @Injectable()
 export class FileValidationPipe implements PipeTransform<any> {
-  async transform(file: any, metadata: ArgumentMetadata): Promise<any> {
-    checkFile(file);
+  constructor(private readonly extensions: Array<string>) {}
+
+  async transform(
+    file: Express.Multer.File,
+    metadata: ArgumentMetadata,
+  ): Promise<any> {
+    checkFile(file, this.extensions);
     return file;
   }
 }
 
 @Injectable()
 export class FilesValidationPipe implements PipeTransform<any> {
-  async transform(files: any, metadata: ArgumentMetadata): Promise<any> {
+  constructor(private readonly extensions: Array<string>) {}
+  async transform(
+    files: Array<Express.Multer.File>,
+    metadata: ArgumentMetadata,
+  ): Promise<any> {
     for (var file of files) {
-      checkFile(file);
+      checkFile(file, this.extensions);
     }
     return files;
   }

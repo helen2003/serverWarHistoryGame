@@ -2,17 +2,46 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type RankModel {
+type TypeRewardModel {
   id: Int!
   name: String!
   created_at: DateTime!
   updated_at: DateTime!
+  deleted_at: DateTime!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type RewardModel {
+  id: Int!
+  name: String!
+  description: String!
+  typeRewardId: Int!
+  url: String!
+  TypeReward: TypeRewardModel
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type AchievementModel {
+  id: Int!
+  rewardId: Int!
+  userId: Int!
+  RewardModel: RewardModel!
+  created_at: DateTime!
+  updated_at: DateTime!
+  Reward: [RewardModel!]
+}
+
+type RankModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
 
 type UserModel {
   id: Int!
@@ -22,6 +51,7 @@ type UserModel {
   role: String!
   rankId: Int!
   Rank: RankModel
+  Achievement: [AchievementModel!]!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -40,24 +70,6 @@ type TopicModel {
   name: String!
   disciplinaId: Int!
   TheoryMaterial: [TheoryMaterialModel!]
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type TypeRewardModel {
-  id: Int!
-  name: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  deleted_at: DateTime!
-}
-
-type RewardModel {
-  id: Int!
-  name: String!
-  description: String!
-  typeRewardId: Int!
-  TypeReward: TypeRewardModel!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -86,12 +98,13 @@ type TypeFileModel {
 type Query {
   getUserOne(id: Int!): UserModel!
   getRankAll: [RankModel!]!
+  getAchievmentAll(rewardId: Int, userId: Int): [AchievementModel!]!
+  getRewardAll: [RewardModel!]!
+  getRewardAOne(id: Int!): RewardModel!
+  getTypeRewardAll: [TypeRewardModel!]!
   getTopicAll: [TopicModel!]!
   getTopicOne: TopicModel!
   getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
-  getTypeRewardAll: [TypeRewardModel!]!
-  getRewardAll: [RewardModel!]!
-  getRewardAOne(id: Int!): RewardModel!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
   getTypeFileAll: [TypeFileModel!]!
@@ -105,17 +118,19 @@ type Mutation {
   createRank(name: String!): RankModel!
   updateRank(name: String!, id: Int!): RankModel!
   deleteRank(id: Int!): RankModel!
-  createTopic(name: String!, disciplinaId: Int!): TopicModel!
+  createAchievment(createAchievmentData: CreateUpdateAchievmentInput!): AchievementModel!
   updateTopic(updateTopicData: UpdateTopicInput!): TopicModel!
-  deleteTopic(id: Int!): TopicModel!
-  updateTheoryMaterialId(idFiles: [Int!]!, idTopic: Int!): Int!
-  deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
-  createTypeReward(name: String!): TypeRewardModel!
-  updateTypeReward(name: String!, id: Int!): TypeRewardModel!
-  deleteTypeReward(id: Int!): TypeRewardModel!
+  deleteAchievment(id: Int!): AchievementModel!
   createReward(createRewardData: CreateUpdateRewardInput!): RewardModel!
   updateReward(id: Int!, updateRewardData: CreateUpdateRewardInput!): RewardModel!
   deleteReward(id: Int!): RewardModel!
+  createTypeReward(name: String!): TypeRewardModel!
+  updateTypeReward(name: String!, id: Int!): TypeRewardModel!
+  deleteTypeReward(id: Int!): TypeRewardModel!
+  createTopic(name: String!, disciplinaId: Int!): TopicModel!
+  deleteTopic(id: Int!): TopicModel!
+  updateTheoryMaterialId(idFiles: [Int!]!, idTopic: Int!): Int!
+  deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): TypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
@@ -123,6 +138,11 @@ type Mutation {
 
 input UpdateUserInput {
   login: String!
+}
+
+input CreateUpdateAchievmentInput {
+  rewardId: Int!
+  userId: Int!
 }
 
 input UpdateTopicInput {

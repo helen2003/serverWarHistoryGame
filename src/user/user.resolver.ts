@@ -13,16 +13,19 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { ValidateUser } from 'src/common/decorators/dto/validate-user.dto';
-import { Rank, RoleEnum, User } from '@prisma/client';
+import { Achievement, Rank, RoleEnum, User } from '@prisma/client';
 import { UpdateUserInput } from './dto/input/update-user.input';
 import { RankService } from 'src/rank/rank.service';
 import { RankModel } from 'src/rank/model/rank.model';
+import { AchievementModel } from 'src/achievement/model/achievement.model';
+import { AchievementService } from 'src/achievement/achievement.service';
 
 @Resolver(() => UserModel)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private rankService: RankService,
+    private achievementService: AchievementService,
   ) {}
 
   @Mutation(() => UserModel)
@@ -67,5 +70,11 @@ export class UserResolver {
   getRank(@Parent() user: UserModel): Promise<Rank | null> {
     const { rankId } = user;
     return this.rankService.findOne(rankId);
+  }
+
+  @ResolveField('Achievement', () => [AchievementModel])
+  getAchievment(@Parent() user: UserModel): Promise<Achievement[]> {
+    const { id } = user;
+    return this.achievementService.findAll({ rewardId: null, userId: id });
   }
 }

@@ -10,7 +10,7 @@ import {
 import { RewardService } from './reward.service';
 import { RewardModel } from './model/reward.model';
 import { Reward, TypeReward } from '@prisma/client';
-import { CreateUpdateRewardInput } from './dto/create-reward.input';
+import { CreateUpdateRewardInput } from './dto/input/create-reward.input';
 import { TypeRewardService } from 'src/type-reward/type-reward.service';
 import { TypeRewardModel } from 'src/type-reward/model/type-reward.model';
 
@@ -31,7 +31,7 @@ export class RewardResolver {
     return this.rewardService.findOne(id);
   }
 
-  @ResolveField('TypeReward', () => TypeRewardModel)
+  @ResolveField('TypeReward', () => TypeRewardModel, { nullable: true })
   getTypeReward(@Parent() reward: RewardModel): Promise<TypeReward> {
     const { typeRewardId } = reward;
     return this.typeRewardService.findOne(typeRewardId);

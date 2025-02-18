@@ -176,10 +176,11 @@ model TypeReward {
 }
 
 model Reward {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   name         String
   description  String
   typeRewardId Int?
+  url          String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt

@@ -16,7 +16,10 @@ export class RewardModel implements Reward {
   @Field(() => Int)
   typeRewardId: number;
 
-  @Field(() => TypeRewardModel, { nullable: true })
+  @Field(() => String)
+  url: string;
+
+  @Field(() => TypeRewardModel)
   TypeReward: TypeRewardModel;
 
   @Field(() => Date)

@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { RoleEnum, User } from '@prisma/client';
+import { AchievementModel } from 'src/achievement/model/achievement.model';
 import { RankModel } from 'src/rank/model/rank.model';
 
 @ObjectType()
@@ -27,6 +28,9 @@ export class UserModel implements User {
 
   @Field(() => RankModel)
   Rank?: RankModel;
+
+  @Field(() => [AchievementModel], { nullable: 'itemsAndList' })
+  Achievement?: AchievementModel[];
 
   @Field(() => Date)
   created_at: Date;

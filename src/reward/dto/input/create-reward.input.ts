@@ -1,5 +1,5 @@
 import { Field, InputType, Int, PickType } from '@nestjs/graphql';
-import { RewardModel } from '../model/reward.model';
+import { RewardModel } from '../../model/reward.model';
 
 @InputType()
 export class CreateUpdateRewardInput extends PickType(RewardModel, [

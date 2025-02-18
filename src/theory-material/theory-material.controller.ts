@@ -1,6 +1,5 @@
 import {
   Controller,
-  Get,
   Post,
   UploadedFile,
   UploadedFiles,
@@ -12,10 +11,7 @@ import {
   ApiOneFile,
 } from 'src/common/decorators/api-file.decorator';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
-import {
-  FilesValidationPipe,
-  FileValidationPipe,
-} from 'src/common/pipes/file-validation.pipes';
+import { FilesValidationPipe, FileValidationPipe } from 'src/common/pipes/file-validation.pipes';
 
 @Controller('theory-material')
 export class TheoryMaterialController {
@@ -23,7 +19,7 @@ export class TheoryMaterialController {
 
   @Post('upload-file')
   @ApiOneFile()
-  @UsePipes(FileValidationPipe)
+  @UsePipes(new FileValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
   uploadFile(
     @UploadedFile() file: Express.Multer.File,
   ): Promise<ResponseFileUploadDto> {
@@ -32,7 +28,7 @@ export class TheoryMaterialController {
 
   @Post('upload-files')
   @ApiManyFiles()
-  @UsePipes(FilesValidationPipe)
+  @UsePipes(new FilesValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
   uploadFiles(
     @UploadedFiles() files: Array<Express.Multer.File>,
   ): Promise<ResponseFileUploadDto[]> {
