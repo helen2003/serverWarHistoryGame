@@ -203,7 +203,7 @@ model Achievement {
   Reward Reward? @relation(fields: [rewardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
-
+  
 model Question {
   id               Int    @id @default(autoincrement())
   text             String
@@ -221,11 +221,10 @@ model Question {
   TypeTask       TypeTask?       @relation(fields: [typeTaskId], references: [id])
   Topic          Topic?          @relation(fields: [topicId], references: [id])
 
-  ResponceTemplate ResponceTemplate?
-
-  Answer          Answer[]
-  ResponceTesting ResponceTesting[]
-  PracticMaterial PracticMaterial[]
+  ResponceTemplate ResponceTemplate[]
+  Answer           Answer[]
+  ResponceTesting  ResponceTesting[]
+  PracticMaterial  PracticMaterial[]
 }
 
 model Testing {
@@ -244,15 +243,30 @@ model Testing {
 }
 
 model Answer {
-  id         Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   text       String
+  correct    Boolean
   questionId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
+  FileAnswer FileAnswer?
+
   Question Question? @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model FileAnswer {
+  id       Int    @id @default(autoincrement())
+  url      String
+  answerId Int    @unique
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  answer Answer @relation(fields: [answerId], references: [id])
 }
 
 model ResponceTesting {
@@ -277,15 +291,15 @@ model ResponceTesting {
 model ResponceTemplate {
   id         Int    @id @default(autoincrement())
   text       String
-  questionId Int?   @unique
+  questionId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Question Question? @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
   ResultRecognition ResultRecognition[]
+
+  Question Question? @relation(fields: [questionId], references: [id])
 }
 
 model ResultRecognition {

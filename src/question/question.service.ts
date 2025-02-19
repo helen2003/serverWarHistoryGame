@@ -19,27 +19,29 @@ export class QuestionService {
   //   });
   // }
 
-  // async findAll(getAllArgs: GetQuestionAllArgs): Promise<Question[]> {
-  //   return this.prisma.question.findMany({
-  //     take: getAllArgs.take,
-  //     where: {
-  //       AND: [
-  //         {
-  //           scaleImportantId: getAllArgs.scaleImportantId,
-  //         },
-  //         {
-  //           typeMiniGameId: getAllArgs.typeMiniGameId,
-  //         },
-  //         {
-  //           typeTaskId: getAllArgs.typeTaskId,
-  //         },
-  //         {
-  //           topicId: getAllArgs.topicId,
-  //         },
-  //       ],
-  //     },
-  //   });
-  // }
+  
+
+  async findAll(getAllArgs: GetQuestionAllArgs): Promise<Question[]> {
+    return this.prisma.question.findMany({
+      take: getAllArgs.take,
+      where: {
+        AND: [
+          {
+            scaleImportantId: getAllArgs.scaleImportantId,
+          },
+          {
+            typeMiniGameId: getAllArgs.typeMiniGameId,
+          },
+          {
+            typeTaskId: getAllArgs.typeTaskId,
+          },
+          {
+            topicId: getAllArgs.topicId,
+          },
+        ],
+      },
+    });
+  }
 
   // async update(
   //   id: number,
