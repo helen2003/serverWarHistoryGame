@@ -9,7 +9,7 @@ export function writeFile(file: Express.Multer.File): string {
       (Math.max(0, file.originalname.lastIndexOf('.')) || Infinity) + 1,
     );
     const fileName = uuid.v4() + `.${file_extension}`;
-    const filePath = path.resolve(__dirname, '../..', 'static');
+    const filePath = path.resolve(__dirname, '../../..', 'static');
     if (!fs.existsSync(filePath)) {
       fs.mkdirSync(filePath, { recursive: true });
     }
