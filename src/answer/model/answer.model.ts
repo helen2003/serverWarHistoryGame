@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Answer } from '@prisma/client';
+import { FileAnswerModel } from 'src/file-answer/model/file-answer.model';
 
 @ObjectType()
 export class AnswerModel implements Answer {
@@ -14,6 +15,9 @@ export class AnswerModel implements Answer {
 
   @Field(() => Int)
   questionId: number;
+
+  @Field(() => [FileAnswerModel])
+  FileAnswer: FileAnswerModel[];
 
   @Field(() => Date)
   created_at: Date;

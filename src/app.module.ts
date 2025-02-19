@@ -17,8 +17,9 @@ import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
 import { ResponceTemplateModule } from './responce-template/responce-template.module';
 import { TheoryMaterialModule } from './theory-material/theory-material.module';
-import { PracticMaterialModule } from './practic-material/practic-material.module';
 import { TypeFileModule } from './type-file/type-file.module';
+import { FileAnswerModule } from './file-answer/file-answer.module';
+import { PracticMaterialModule } from './practic-material/practic-material.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { TypeFileModule } from './type-file/type-file.module';
     TheoryMaterialModule,
     PracticMaterialModule,
     TypeFileModule,
+    FileAnswerModule,
   ],
 })
 export class AppModule {}

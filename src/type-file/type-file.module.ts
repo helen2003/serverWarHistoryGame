@@ -5,5 +5,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Module({
   providers: [TypeFileResolver, TypeFileService, PrismaService],
+  exports: [TypeFileService],
 })
 export class TypeFileModule {}

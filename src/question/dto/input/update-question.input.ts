@@ -1,10 +1,8 @@
 import { Field, InputType, Int, PickType } from '@nestjs/graphql';
 import { QuestionModel } from '../../model/question.model';
-import { CreateAnswerInput } from 'src/answer/dto/input/create-answer.input';
-import { CreateResponceTemplateInput } from 'src/responce-template/dto/create-responce-template.input';
 
 @InputType()
-export class CreateQuestionInput extends PickType(QuestionModel, [
+export class UpdateQuestionInput extends PickType(QuestionModel, [
   'text',
   'topicId',
   'scaleImportantId',
@@ -25,10 +23,4 @@ export class CreateQuestionInput extends PickType(QuestionModel, [
 
   @Field(() => Int)
   typeTaskId: number;
-
-  @Field(() => [CreateAnswerInput])
-  Answer: CreateAnswerInput[];
-
-  @Field(() => [CreateResponceTemplateInput])
-  ResponceTemplate: CreateResponceTemplateInput[];
 }

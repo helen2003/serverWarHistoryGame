@@ -5,5 +5,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Module({
   providers: [ResponceTemplateResolver, ResponceTemplateService, PrismaService],
+  exports: [ResponceTemplateService]
 })
 export class ResponceTemplateModule {}

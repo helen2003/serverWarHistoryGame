@@ -88,6 +88,39 @@ type TypeTaskModel {
   updated_at: DateTime!
 }
 
+type AnswerModel {
+  id: Int!
+  text: String!
+  correct: String!
+  questionId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type ResponceTemplateModel {
+  id: Int!
+  text: String!
+  questionId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type QuestionModel {
+  id: Int!
+  text: String!
+  topicId: Int!
+  Topic: TopicModel!
+  Answer: [AnswerModel!]!
+  ResponceTemplate: [ResponceTemplateModel!]!
+  typeTaskId: Int!
+  TypeTask: TypeTaskModel!
+  typeMiniGameId: Int!
+  TypeMiniGame: TypeMiniGameModel!
+  scaleImportantId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type TypeFileModel {
   id: Int!
   name: String!
@@ -107,6 +140,8 @@ type Query {
   getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
+  getQuestionAll(take: Int, random: Boolean!, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): [QuestionModel!]!
+  getQuestionAOne(id: Int!): QuestionModel!
   getTypeFileAll: [TypeFileModel!]!
 }
 
@@ -134,6 +169,10 @@ type Mutation {
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): TypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
+  createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
+  updateQuestion(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
+  deleteQuestion(id: Int!, questionId: Int!): ResponceTemplateModel!
+  updateAnswer(id: Int!, updateAnswerData: UpdateAnswerInput!): AnswerModel!
 }
 
 input UpdateUserInput {
@@ -155,4 +194,35 @@ input CreateUpdateRewardInput {
   name: String!
   description: String!
   typeRewardId: Int!
+}
+
+input CreateQuestionInput {
+  text: String!
+  scaleImportantId: Int!
+  topicId: Int!
+  typeMiniGameId: Int!
+  typeTaskId: Int!
+  Answer: [CreateAnswerInput!]!
+  ResponceTemplate: [CreateResponceTemplateInput!]!
+}
+
+input CreateAnswerInput {
+  text: String!
+  correct: String
+}
+
+input CreateResponceTemplateInput {
+  text: String!
+}
+
+input UpdateResponceTemplateInput {
+  id: Int!
+  text: String!
+  questionId: Int!
+}
+
+input UpdateAnswerInput {
+  text: String!
+  correct: String
+  questionId: Int!
 }

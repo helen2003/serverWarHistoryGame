@@ -1,8 +1,8 @@
 import { Field, InputType, Int, PickType } from '@nestjs/graphql';
-import { AnswerModel } from '../model/answer.model';
+import { AnswerModel } from '../../model/answer.model';
 
 @InputType()
-export class CreateUpdateAnswerInput extends PickType(AnswerModel, [
+export class UpdateAnswerInput extends PickType(AnswerModel, [
   'text',
   'correct',
   'questionId',
@@ -10,7 +10,7 @@ export class CreateUpdateAnswerInput extends PickType(AnswerModel, [
   @Field(() => String)
   text: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   correct: string;
 
   @Field(() => Int)

@@ -2,66 +2,75 @@ import { Injectable } from '@nestjs/common';
 import { Question } from '@prisma/client';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { GetQuestionAllArgs } from './dto/args/find-all-question.args';
+import { CreateQuestionInput } from './dto/input/create-question.input';
+import { UpdateQuestionInput } from './dto/input/update-question.input';
 
 @Injectable()
 export class QuestionService {
   constructor(private prisma: PrismaService) {}
 
-  // async create(
-  //   createQuestionData: CreateUpdateQuestionInput,
-  // ): Promise<Question> {
-  //   return this.prisma.question.create({ data: { ...createQuestionData } });
-  // }
-
-  // async findOne(id: number): Promise<Question> {
-  //   return this.prisma.question.findUnique({
-  //     where: { id: id },
-  //   });
-  // }
-
-  
-
-  async findAll(getAllArgs: GetQuestionAllArgs): Promise<Question[]> {
-    return this.prisma.question.findMany({
-      take: getAllArgs.take,
-      where: {
-        AND: [
-          {
-            scaleImportantId: getAllArgs.scaleImportantId,
-          },
-          {
-            typeMiniGameId: getAllArgs.typeMiniGameId,
-          },
-          {
-            typeTaskId: getAllArgs.typeTaskId,
-          },
-          {
-            topicId: getAllArgs.topicId,
-          },
-        ],
+  async create(createQuestionData: CreateQuestionInput): Promise<Question> {
+    const { Answer, ResponceTemplate, ...questionData } = createQuestionData;
+    return this.prisma.question.create({
+      data: {
+        ...questionData,
+        Answer: { createMany: { data: [...Answer] } },
+        ResponceTemplate: { createMany: { data: [...ResponceTemplate] } },
       },
     });
   }
 
-  // async update(
-  //   id: number,
-  //   updateQuestionData: CreateUpdateQuestionInput,
-  // ): Promise<Question> {
-  //   return this.prisma.question.update({
-  //     where: {
-  //       id: id,
-  //     },
-  //     data: {
-  //       ...updateQuestionData,
-  //     },
-  //   });
-  // }
+  async findOne(id: number): Promise<Question> {
+    return this.prisma.question.findUnique({
+      where: { id: id },
+    });
+  }
 
-  // async delete(id: number): Promise<Question> {
-  //   return this.prisma.question.delete({
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
-  // }
+  async findAll(getAllArgs: GetQuestionAllArgs): Promise<Question[]> {
+    if (getAllArgs.random) {
+      return this.prisma
+        .$queryRaw`SELECT * FROM Question WHERE topicId = ${getAllArgs.topicId} ORDER BY random() LIMIT ${getAllArgs.take}`;
+    } else
+      return this.prisma.question.findMany({
+        take: getAllArgs.take,
+        where: {
+          AND: [
+            {
+              scaleImportantId: getAllArgs.scaleImportantId,
+            },
+            {
+              typeMiniGameId: getAllArgs.typeMiniGameId,
+            },
+            {
+              typeTaskId: getAllArgs.typeTaskId,
+            },
+            {
+              topicId: getAllArgs.topicId,
+            },
+          ],
+        },
+      });
+  }
+
+  async update(
+    id: number,
+    updateQuestionData: UpdateQuestionInput,
+  ): Promise<Question> {
+    return this.prisma.question.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...updateQuestionData,
+      },
+    });
+  }
+
+  async delete(id: number): Promise<Question> {
+    return this.prisma.question.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

@@ -6,30 +6,11 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
+import { writeFile } from 'src/common/function/function-wrire-file';
 
 @Injectable()
 export class RewardService {
   constructor(private prisma: PrismaService) {}
-
-  private writeFile(file: Express.Multer.File): string {
-    try {
-      let file_extension = file.originalname.slice(
-        (Math.max(0, file.originalname.lastIndexOf('.')) || Infinity) + 1,
-      );
-      const fileName = uuid.v4() + `.${file_extension}`;
-      const filePath = path.resolve(__dirname, '../..', 'static');
-      if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(filePath, { recursive: true });
-      }
-      fs.writeFileSync(path.join(filePath, fileName), file.buffer);
-      return fileName;
-    } catch (error) {
-      throw new HttpException(
-        'Ошибка при записи файла',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
 
   async create(createRewardInput: CreateUpdateRewardInput): Promise<Reward> {
     return this.prisma.reward.create({ data: { ...createRewardInput } });
@@ -71,7 +52,7 @@ export class RewardService {
     id: number,
     file: Express.Multer.File,
   ): Promise<ResponseFileUploadDto> {
-    const fileName = this.writeFile(file);
+    const fileName = writeFile(file);
     return this.prisma.reward.update({
       where: {
         id: id,

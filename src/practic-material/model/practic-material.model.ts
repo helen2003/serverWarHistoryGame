@@ -1,9 +1,9 @@
-import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
-import { TheoryMaterial } from '@prisma/client';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { PracticMaterial } from '@prisma/client';
 import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
 
 @ObjectType()
-export class TheoryMaterialModel implements TheoryMaterial {
+export class PracticMaterialModel implements PracticMaterial {
   @Field(() => Int)
   id: number;
 
@@ -11,7 +11,7 @@ export class TheoryMaterialModel implements TheoryMaterial {
   url: string;
 
   @Field(() => Int)
-  topicId: number;
+  questionId: number;
 
   @Field(() => Int)
   typeFileId: number;
