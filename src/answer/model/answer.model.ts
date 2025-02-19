@@ -9,6 +9,9 @@ export class AnswerModel implements Answer {
   @Field(() => String)
   text: string;
 
+  @Field(() => String)
+  correct: string;
+
   @Field(() => Int)
   questionId: number;
 

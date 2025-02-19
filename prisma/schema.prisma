@@ -245,7 +245,7 @@ model Testing {
 model Answer {
   id         Int     @id @default(autoincrement())
   text       String
-  correct    Boolean
+  correct    String
   questionId Int?
 
   created_at DateTime  @default(now())
