@@ -4,7 +4,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
-    await this.$connect()
+    await this.$connect();
 
     this.$use(
       async (
@@ -17,7 +17,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
             params.args.where.deleted_at = undefined;
           else params.args.where.deleted_at = null;
         }
-        if (params.action === 'findMany') {
+        if (params.action === 'findMany' || params.action === 'count') {
           if (params.args.where) {
             if (params.args.where.deleted_at === undefined) {
               params.args.where.deleted_at = null;

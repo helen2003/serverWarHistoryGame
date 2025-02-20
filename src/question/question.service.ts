@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Question } from '@prisma/client';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { GetQuestionAllArgs } from './dto/args/find-all-question.args';

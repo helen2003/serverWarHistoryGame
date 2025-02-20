@@ -56,11 +56,19 @@ type UserModel {
   updated_at: DateTime!
 }
 
+type TypeFileModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type TheoryMaterialModel {
   id: Int!
   url: String!
   topicId: Int!
   typeFileId: Int!
+  TypeFile: TypeFileModel!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -88,11 +96,31 @@ type TypeTaskModel {
   updated_at: DateTime!
 }
 
+type FileAnswerModel {
+  id: Int!
+  url: String!
+  answerId: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type AnswerModel {
   id: Int!
   text: String!
   correct: String!
   questionId: Int!
+  FileAnswer: [FileAnswerModel!]!
+  created_at: DateTime!
+  updated_at: DateTime!
+  TypeMiniGame: [FileAnswerModel!]!
+}
+
+type PracticMaterialModel {
+  id: Int!
+  url: String!
+  questionId: Int!
+  typeFileId: Int!
+  TypeFile: TypeFileModel!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -111,19 +139,13 @@ type QuestionModel {
   topicId: Int!
   Topic: TopicModel!
   Answer: [AnswerModel!]!
-  ResponceTemplate: [ResponceTemplateModel!]!
+  ResponceTemplate: ResponceTemplateModel
+  PracticMaterial: [PracticMaterialModel!]!
   typeTaskId: Int!
   TypeTask: TypeTaskModel!
   typeMiniGameId: Int!
   TypeMiniGame: TypeMiniGameModel!
   scaleImportantId: Int!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type TypeFileModel {
-  id: Int!
-  name: String!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -138,11 +160,12 @@ type Query {
   getTopicAll: [TopicModel!]!
   getTopicOne: TopicModel!
   getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
+  getTypeFileAll: [TypeFileModel!]!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
   getQuestionAll(take: Int, random: Boolean!, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): [QuestionModel!]!
   getQuestionAOne(id: Int!): QuestionModel!
-  getTypeFileAll: [TypeFileModel!]!
+  getAllPracticMaterial(questionId: Int, typeFileId: Int): PracticMaterialModel!
 }
 
 type Mutation {
@@ -173,6 +196,9 @@ type Mutation {
   updateQuestion(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
   deleteQuestion(id: Int!, questionId: Int!): ResponceTemplateModel!
   updateAnswer(id: Int!, updateAnswerData: UpdateAnswerInput!): AnswerModel!
+  deleteFileAnswer(id: Int!): FileAnswerModel!
+  updatePracticMaterialId(idFiles: [Int!]!, idQuestion: Int!): Int!
+  deletePracticMaterial(id: Int!): PracticMaterialModel!
 }
 
 input UpdateUserInput {
@@ -208,7 +234,7 @@ input CreateQuestionInput {
 
 input CreateAnswerInput {
   text: String!
-  correct: String
+  correct: String!
 }
 
 input CreateResponceTemplateInput {

@@ -14,7 +14,7 @@ import { GetTheoryMaterialMArgs } from './dto/args/theory-material.args';
 import { TypeFileService } from 'src/type-file/type-file.service';
 import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
 
-@Resolver()
+@Resolver(() => TheoryMaterialModel)
 export class TheoryMaterialResolver {
   constructor(
     private readonly theoryMaterialService: TheoryMaterialService,

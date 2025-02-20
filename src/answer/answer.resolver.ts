@@ -13,7 +13,7 @@ import { UpdateAnswerInput } from './dto/input/update-answer.input';
 import { FileAnswerModel } from 'src/file-answer/model/file-answer.model';
 import { FileAnswerService } from 'src/file-answer/file-answer.service';
 
-@Resolver()
+@Resolver(() => AnswerModel)
 export class AnswerResolver {
   constructor(
     private readonly answerService: AnswerService,

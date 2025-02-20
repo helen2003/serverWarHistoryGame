@@ -14,7 +14,7 @@ import { GetPracticMaterialArgs } from './dto/args/practic-material.args';
 import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
 import { TypeFileService } from 'src/type-file/type-file.service';
 
-@Resolver()
+@Resolver(() => PracticMaterialModel)
 export class PracticMaterialResolver {
   constructor(
     private readonly practicMaterialService: PracticMaterialService,
