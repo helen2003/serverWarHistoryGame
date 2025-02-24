@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Topic } from '@prisma/client';
-import { TheoryMaterialModel } from 'src/theory-material/model/theory-material.model';
+import { TheoryMaterialModel } from '../../theory-material/model/theory-material.model';
 
 @ObjectType()
 export class TopicModel implements Topic {

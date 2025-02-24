@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Topic } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { UpdateTopicInput } from './dto/update-model.input';
 
 @Injectable()

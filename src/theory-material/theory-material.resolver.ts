@@ -11,8 +11,8 @@ import { TheoryMaterialService } from './theory-material.service';
 import { TheoryMaterial, TypeFile } from '@prisma/client';
 import { TheoryMaterialModel } from './model/theory-material.model';
 import { GetTheoryMaterialMArgs } from './dto/args/theory-material.args';
-import { TypeFileService } from 'src/type-file/type-file.service';
-import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
+import { TypeFileService } from '../type-file/type-file.service';
+import { TypeFileModel } from '../type-file/model/type-mini-game.model';
 
 @Resolver(() => TheoryMaterialModel)
 export class TheoryMaterialResolver {

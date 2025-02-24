@@ -1,5 +1,5 @@
 import { ArgsType, Field, Int, PickType } from '@nestjs/graphql';
-import { TheoryMaterialModel } from 'src/theory-material/model/theory-material.model';
+import { TheoryMaterialModel } from '../../../theory-material/model/theory-material.model';
 
 @ArgsType()
 export class GetTheoryMaterialMArgs extends PickType(TheoryMaterialModel, [

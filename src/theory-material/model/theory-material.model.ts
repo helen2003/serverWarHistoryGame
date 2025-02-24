@@ -1,6 +1,6 @@
 import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { TheoryMaterial } from '@prisma/client';
-import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
+import { TypeFileModel } from '../../type-file/model/type-mini-game.model';
 
 @ObjectType()
 export class TheoryMaterialModel implements TheoryMaterial {

@@ -11,8 +11,8 @@ import { TopicService } from './topic.service';
 import { TopicModel } from './model/topic.model';
 import { TheoryMaterial, Topic } from '@prisma/client';
 import { UpdateTopicInput } from './dto/update-model.input';
-import { TheoryMaterialModel } from 'src/theory-material/model/theory-material.model';
-import { TheoryMaterialService } from 'src/theory-material/theory-material.service';
+import { TheoryMaterialModel } from '../theory-material/model/theory-material.model';
+import { TheoryMaterialService } from '../theory-material/theory-material.service';
 
 @Resolver(() => TopicModel)
 export class TopicResolver {

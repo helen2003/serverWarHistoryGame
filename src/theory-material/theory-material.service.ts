@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { TheoryMaterial } from '@prisma/client';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import { GetTheoryMaterialMArgs } from './dto/args/theory-material.args';
-import { getTypeFile, writeFile } from 'src/common/function/function-wrire-file';
+import { getTypeFile, writeFile } from '../common/function/function-wrire-file';
 
 @Injectable()
 export class TheoryMaterialService {
