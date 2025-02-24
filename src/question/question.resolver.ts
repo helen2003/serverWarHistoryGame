@@ -33,6 +33,7 @@ import { UpdateQuestionInput } from './dto/input/update-question.input';
 import { PracticMaterialService } from 'src/practic-material/practic-material.service';
 import { ResponceTemplateModel } from 'src/responce-template/model/responce-template.model';
 import { PracticMaterialModel } from 'src/practic-material/model/practic-material.model';
+import { QuestionAllOutput } from './dto/ouput/findAll-question.output';
 
 @Resolver(() => QuestionModel)
 export class QuestionResolver {
@@ -46,10 +47,8 @@ export class QuestionResolver {
     private practicMaterialService: PracticMaterialService,
   ) {}
 
-  @Query(() => [QuestionModel])
-  getQuestionAll(
-    @Args() findAllQuestionArgs: GetQuestionAllArgs,
-  ): Promise<Question[]> {
+  @Query(() => QuestionAllOutput)
+  getQuestionAll(@Args() findAllQuestionArgs: GetQuestionAllArgs) {
     return this.questionService.findAll(findAllQuestionArgs);
   }
 

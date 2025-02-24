@@ -150,6 +150,11 @@ type QuestionModel {
   updated_at: DateTime!
 }
 
+type QuestionAllOutput {
+  totalCount: Int!
+  Questions: [QuestionModel!]!
+}
+
 type Query {
   getUserOne(id: Int!): UserModel!
   getRankAll: [RankModel!]!
@@ -163,7 +168,7 @@ type Query {
   getTypeFileAll: [TypeFileModel!]!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
-  getQuestionAll(take: Int, random: Boolean!, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): [QuestionModel!]!
+  getQuestionAll(take: Int, random: Boolean!, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): QuestionAllOutput!
   getQuestionAOne(id: Int!): QuestionModel!
   getAllPracticMaterial(questionId: Int, typeFileId: Int): PracticMaterialModel!
 }

@@ -4,6 +4,7 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 import { GetQuestionAllArgs } from './dto/args/find-all-question.args';
 import { CreateQuestionInput } from './dto/input/create-question.input';
 import { UpdateQuestionInput } from './dto/input/update-question.input';
+import { QuestionAllOutput } from './dto/ouput/findAll-question.output';
 
 @Injectable()
 export class QuestionService {
@@ -26,30 +27,37 @@ export class QuestionService {
     });
   }
 
-  async findAll(getAllArgs: GetQuestionAllArgs): Promise<Question[]> {
+  async findAll(getAllArgs: GetQuestionAllArgs) {
+    const totalCount = await this.prisma.question.count({});
     if (getAllArgs.random) {
-      return this.prisma
-        .$queryRaw`SELECT * FROM Question WHERE topicId = ${getAllArgs.topicId} ORDER BY random() LIMIT ${getAllArgs.take}`;
+      return {
+        totalCount: totalCount,
+        Questions: await this.prisma
+          .$queryRaw`SELECT * FROM Question WHERE topicId = ${getAllArgs.topicId} ORDER BY random() LIMIT ${getAllArgs.take}`,
+      };
     } else
-      return this.prisma.question.findMany({
-        take: getAllArgs.take,
-        where: {
-          AND: [
-            {
-              scaleImportantId: getAllArgs.scaleImportantId,
-            },
-            {
-              typeMiniGameId: getAllArgs.typeMiniGameId,
-            },
-            {
-              typeTaskId: getAllArgs.typeTaskId,
-            },
-            {
-              topicId: getAllArgs.topicId,
-            },
-          ],
-        },
-      });
+      return {
+        totalCount: totalCount,
+        Questions: await this.prisma.question.findMany({
+          take: getAllArgs.take,
+          where: {
+            AND: [
+              {
+                scaleImportantId: getAllArgs.scaleImportantId,
+              },
+              {
+                typeMiniGameId: getAllArgs.typeMiniGameId,
+              },
+              {
+                typeTaskId: getAllArgs.typeTaskId,
+              },
+              {
+                topicId: getAllArgs.topicId,
+              },
+            ],
+          },
+        }),
+      };
   }
 
   async update(

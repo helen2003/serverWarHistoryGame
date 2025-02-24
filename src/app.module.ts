@@ -20,6 +20,7 @@ import { TheoryMaterialModule } from './theory-material/theory-material.module';
 import { TypeFileModule } from './type-file/type-file.module';
 import { FileAnswerModule } from './file-answer/file-answer.module';
 import { PracticMaterialModule } from './practic-material/practic-material.module';
+import { DisciplinaModule } from './disciplina/disciplina.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { PracticMaterialModule } from './practic-material/practic-material.modul
     PracticMaterialModule,
     TypeFileModule,
     FileAnswerModule,
+    DisciplinaModule,
   ],
 })
 export class AppModule {}
