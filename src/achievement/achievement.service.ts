@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Achievement } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { GetAchievmentArgs } from './dto/args/get-all-achievment.args';
 import { CreateUpdateAchievmentInput } from './dto/input/create-update-achievment.input';
 

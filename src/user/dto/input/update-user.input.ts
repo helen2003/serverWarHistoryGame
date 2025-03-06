@@ -1,5 +1,5 @@
 import { Field, InputType, Int, PickType } from '@nestjs/graphql';
-import { UserModel } from 'src/user/model/users.model';
+import { UserModel } from '../../model/users.model';
 
 @InputType()
 export class UpdateUserInput extends PickType(UserModel, [

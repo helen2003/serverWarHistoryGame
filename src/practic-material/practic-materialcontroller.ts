@@ -8,12 +8,12 @@ import {
 import {
   ApiManyFiles,
   ApiOneFile,
-} from 'src/common/decorators/api-file.decorator';
+} from '../common/decorators/api-file.decorator';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import {
   FilesValidationPipe,
   FileValidationPipe,
-} from 'src/common/pipes/file-validation.pipes';
+} from '../common/pipes/file-validation.pipes';
 import { PracticMaterialService } from './practic-material.service';
 
 @Controller('practic-material')

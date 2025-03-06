@@ -1,12 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Reward } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { CreateUpdateRewardInput } from './dto/input/create-reward.input';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as uuid from 'uuid';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
-import { writeFile } from 'src/common/function/function-wrire-file';
+import { writeFile } from '../common/function/function-wrire-file';
 
 @Injectable()
 export class RewardService {

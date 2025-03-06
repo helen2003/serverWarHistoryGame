@@ -4,21 +4,12 @@ import { TopicService } from './topic.service';
 import { TheoryMaterialModule } from '../theory-material/theory-material.module';
 import { PrismaService } from '../common/prisma/prisma.service';
 
-const mockYourService = {
-  yourMethod: jest.fn(),
-};
-
 let resolver: TopicResolver;
 let service: TopicService;
 
 beforeEach(async () => {
   const module: TestingModule = await Test.createTestingModule({
-    providers: [
-      TopicResolver,
-      TopicService,
-      PrismaService,
-      //   { provide: TopicService, useValue: mockYourService },
-    ],
+    providers: [TopicResolver, TopicService, PrismaService],
     imports: [TheoryMaterialModule],
   }).compile();
 
@@ -26,7 +17,7 @@ beforeEach(async () => {
   service = module.get<TopicService>(TopicService);
 });
 
-describe('YourResolver', () => {
+describe('TopicResolver', () => {
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
@@ -50,6 +41,6 @@ describe('YourResolver', () => {
     jest.spyOn(service, 'create').mockImplementation(async () => result);
 
     expect(await resolver.createTopic('string', 1)).toBe(result);
-    expect(await resolver.createTopic('string', 1)).toBe(null);
+    // expect(await resolver.createTopic('string', 1)).toBe(null);
   });
 });

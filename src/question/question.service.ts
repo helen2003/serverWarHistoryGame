@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Question } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { GetQuestionAllArgs } from './dto/args/find-all-question.args';
 import { CreateQuestionInput } from './dto/input/create-question.input';
 import { UpdateQuestionInput } from './dto/input/update-question.input';

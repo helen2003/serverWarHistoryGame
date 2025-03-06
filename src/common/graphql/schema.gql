@@ -190,7 +190,7 @@ type Mutation {
   createTypeReward(name: String!): TypeRewardModel!
   updateTypeReward(name: String!, id: Int!): TypeRewardModel!
   deleteTypeReward(id: Int!): TypeRewardModel!
-  createTopic(name: String!, disciplinaId: Int!): TopicModel!
+  createTopic(name: String!, disciplinaId: Int): TopicModel!
   deleteTopic(id: Int!): TopicModel!
   updateTheoryMaterialId(idFiles: [Int!]!, idTopic: Int!): Int!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
@@ -229,7 +229,7 @@ input CreateUpdateRewardInput {
 
 input CreateQuestionInput {
   text: String!
-  scaleImportantId: Int!
+  scaleImportantId: Int
   topicId: Int!
   typeMiniGameId: Int!
   typeTaskId: Int!

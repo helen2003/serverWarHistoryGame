@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import {
   getTypeFile,
   writeFile,
-} from 'src/common/function/function-wrire-file';
+} from '../common/function/function-wrire-file';
 import { PracticMaterial } from '@prisma/client';
 import { GetPracticMaterialArgs } from './dto/args/practic-material.args';
 

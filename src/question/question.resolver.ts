@@ -19,21 +19,23 @@ import {
   TypeTask,
 } from '@prisma/client';
 import { GetQuestionAllArgs } from './dto/args/find-all-question.args';
-import { TypeTaskModel } from 'src/type-task/model/type-task.model';
-import { TypeTaskService } from 'src/type-task/type-task.service';
-import { TopicService } from 'src/topic/topic.service';
-import { TopicModel } from 'src/topic/model/topic.model';
-import { TypeMiniGameService } from 'src/type-mini-game/type-mini-game.service';
-import { TypeMiniGameModel } from 'src/type-mini-game/model/type-mini-game.model';
-import { AnswerService } from 'src/answer/answer.service';
-import { AnswerModel } from 'src/answer/model/answer.model';
-import { ResponceTemplateService } from 'src/responce-template/responce-template.service';
+import { TypeTaskModel } from '../type-task/model/type-task.model';
+import { TypeTaskService } from '../type-task/type-task.service';
+import { TopicService } from '../topic/topic.service';
+import { TopicModel } from '../topic/model/topic.model';
+import { TypeMiniGameService } from '../type-mini-game/type-mini-game.service';
+import { TypeMiniGameModel } from '../type-mini-game/model/type-mini-game.model';
+import { AnswerService } from '../answer/answer.service';
+import { AnswerModel } from '../answer/model/answer.model';
+import { ResponceTemplateService } from '../responce-template/responce-template.service';
 import { CreateQuestionInput } from './dto/input/create-question.input';
 import { UpdateQuestionInput } from './dto/input/update-question.input';
-import { PracticMaterialService } from 'src/practic-material/practic-material.service';
-import { ResponceTemplateModel } from 'src/responce-template/model/responce-template.model';
-import { PracticMaterialModel } from 'src/practic-material/model/practic-material.model';
+import { PracticMaterialService } from '../practic-material/practic-material.service';
+import { ResponceTemplateModel } from '../responce-template/model/responce-template.model';
+import { PracticMaterialModel } from '../practic-material/model/practic-material.model';
 import { QuestionAllOutput } from './dto/ouput/findAll-question.output';
+import { UsePipes } from '@nestjs/common';
+import { QuestionValidationPipe } from '../common/pipes/question.pipes';
 
 @Resolver(() => QuestionModel)
 export class QuestionResolver {
@@ -106,6 +108,7 @@ export class QuestionResolver {
   }
 
   @Mutation(() => QuestionModel)
+  @UsePipes(new QuestionValidationPipe())
   createQuestion(
     @Args('createQuestionData') createQuestionInput: CreateQuestionInput,
   ): Promise<Question> {

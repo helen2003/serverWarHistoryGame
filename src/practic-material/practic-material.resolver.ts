@@ -11,8 +11,8 @@ import { PracticMaterial, TheoryMaterial, TypeFile } from '@prisma/client';
 import { PracticMaterialService } from './practic-material.service';
 import { PracticMaterialModel } from './model/practic-material.model';
 import { GetPracticMaterialArgs } from './dto/args/practic-material.args';
-import { TypeFileModel } from 'src/type-file/model/type-mini-game.model';
-import { TypeFileService } from 'src/type-file/type-file.service';
+import { TypeFileModel } from '../type-file/model/type-mini-game.model';
+import { TypeFileService } from '../type-file/type-file.service';
 
 @Resolver(() => PracticMaterialModel)
 export class PracticMaterialResolver {

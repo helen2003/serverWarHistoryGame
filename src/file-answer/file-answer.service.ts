@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { FileAnswerFileUploadDto } from './output/response-file-upload.dto';
-import { writeFile } from 'src/common/function/function-wrire-file';
+import { writeFile } from '../common/function/function-wrire-file';
 import { FileAnswer } from '@prisma/client';
 
 @Injectable()

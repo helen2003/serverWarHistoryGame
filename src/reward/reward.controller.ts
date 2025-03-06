@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UploadedFile, UsePipes } from '@nestjs/common';
-import { ApiOneFile } from 'src/common/decorators/api-file.decorator';
-import { FileValidationPipe } from 'src/common/pipes/file-validation.pipes';
+import { ApiOneFile } from '../common/decorators/api-file.decorator';
+import { FileValidationPipe } from '../common/pipes/file-validation.pipes';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import { RewardService } from './reward.service';
 

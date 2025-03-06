@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Achievement, TypeReward } from '@prisma/client';
-import { RewardModel } from 'src/reward/model/reward.model';
+import { RewardModel } from '../../reward/model/reward.model';
 
 @ObjectType()
 export class AchievementModel implements Achievement {

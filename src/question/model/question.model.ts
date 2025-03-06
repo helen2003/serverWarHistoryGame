@@ -1,11 +1,11 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Question } from '@prisma/client';
-import { AnswerModel } from 'src/answer/model/answer.model';
-import { PracticMaterialModel } from 'src/practic-material/model/practic-material.model';
-import { ResponceTemplateModel } from 'src/responce-template/model/responce-template.model';
-import { TopicModel } from 'src/topic/model/topic.model';
-import { TypeMiniGameModel } from 'src/type-mini-game/model/type-mini-game.model';
-import { TypeTaskModel } from 'src/type-task/model/type-task.model';
+import { AnswerModel } from '../../answer/model/answer.model';
+import { PracticMaterialModel } from '../../practic-material/model/practic-material.model';
+import { ResponceTemplateModel } from '../../responce-template/model/responce-template.model';
+import { TopicModel } from '../../topic/model/topic.model';
+import { TypeMiniGameModel } from '../../type-mini-game/model/type-mini-game.model';
+import { TypeTaskModel } from '../../type-task/model/type-task.model';
 
 @ObjectType()
 export class QuestionModel implements Question {

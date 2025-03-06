@@ -1,5 +1,5 @@
 import { ArgsType, Field, Int, PickType } from '@nestjs/graphql';
-import { QuestionModel } from 'src/question/model/question.model';
+import { QuestionModel } from '../../../question/model/question.model';
 
 @ArgsType()
 export class GetQuestionAllArgs extends PickType(QuestionModel, [

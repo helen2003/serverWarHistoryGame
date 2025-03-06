@@ -1,5 +1,5 @@
 import { ArgsType, Field, Int, PickType } from '@nestjs/graphql';
-import { PracticMaterialModel } from 'src/practic-material/model/practic-material.model';
+import { PracticMaterialModel } from '../../../practic-material/model/practic-material.model';
 
 @ArgsType()
 export class GetPracticMaterialArgs extends PickType(PracticMaterialModel, [

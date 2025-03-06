@@ -10,15 +10,15 @@ import {
 import { UserService } from './user.service';
 import { UserModel } from './model/users.model';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { ValidateUser } from 'src/common/decorators/dto/validate-user.dto';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { ValidateUser } from '../common/decorators/dto/validate-user.dto';
 import { Achievement, Rank, RoleEnum, User } from '@prisma/client';
 import { UpdateUserInput } from './dto/input/update-user.input';
-import { RankService } from 'src/rank/rank.service';
-import { RankModel } from 'src/rank/model/rank.model';
-import { AchievementModel } from 'src/achievement/model/achievement.model';
-import { AchievementService } from 'src/achievement/achievement.service';
+import { RankService } from '../rank/rank.service';
+import { RankModel } from '../rank/model/rank.model';
+import { AchievementModel } from '../achievement/model/achievement.model';
+import { AchievementService } from '../achievement/achievement.service';
 
 @Resolver(() => UserModel)
 export class UserResolver {

@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { RewardService } from './reward.service';
 import { RewardResolver } from './reward.resolver';
-import { PrismaService } from 'src/common/prisma/prisma.service';
-import { TypeRewardModule } from 'src/type-reward/type-reward.module';
+import { PrismaService } from '../common/prisma/prisma.service';
+import { TypeRewardModule } from '../type-reward/type-reward.module';
 import { RewardController } from './reward.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';

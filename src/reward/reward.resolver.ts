@@ -11,8 +11,8 @@ import { RewardService } from './reward.service';
 import { RewardModel } from './model/reward.model';
 import { Reward, TypeReward } from '@prisma/client';
 import { CreateUpdateRewardInput } from './dto/input/create-reward.input';
-import { TypeRewardService } from 'src/type-reward/type-reward.service';
-import { TypeRewardModel } from 'src/type-reward/model/type-reward.model';
+import { TypeRewardService } from '../type-reward/type-reward.service';
+import { TypeRewardModel } from '../type-reward/model/type-reward.model';
 
 @Resolver(() => RewardModel)
 export class RewardResolver {

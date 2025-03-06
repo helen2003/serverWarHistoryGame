@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Answer } from '@prisma/client';
-import { FileAnswerModel } from 'src/file-answer/model/file-answer.model';
+import { FileAnswerModel } from '../../file-answer/model/file-answer.model';
 
 @ObjectType()
 export class AnswerModel implements Answer {

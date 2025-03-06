@@ -7,7 +7,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtPayloadInterface } from './interface/JwtPayload.interface';
 import { User } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
-import { UserModel } from 'src/user/model/users.model';
 import { RegistationDto } from './dto/registation-dto.dto';
 
 @Injectable()

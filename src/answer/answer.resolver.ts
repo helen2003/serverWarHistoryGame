@@ -10,8 +10,8 @@ import { AnswerService } from './answer.service';
 import { AnswerModel } from './model/answer.model';
 import { Answer, FileAnswer } from '@prisma/client';
 import { UpdateAnswerInput } from './dto/input/update-answer.input';
-import { FileAnswerModel } from 'src/file-answer/model/file-answer.model';
-import { FileAnswerService } from 'src/file-answer/file-answer.service';
+import { FileAnswerModel } from '../file-answer/model/file-answer.model';
+import { FileAnswerService } from '../file-answer/file-answer.service';
 
 @Resolver(() => AnswerModel)
 export class AnswerResolver {

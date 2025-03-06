@@ -7,7 +7,7 @@ import { UpdateTopicInput } from './dto/update-model.input';
 export class TopicService {
   constructor(private prisma: PrismaService) {}
 
-  async create(name: string, disciplinaId: number): Promise<Topic> {
+  async create(name: string, disciplinaId?: number): Promise<Topic> {
     return this.prisma.topic.create({
       data: { name: name, disciplinaId: disciplinaId },
     });

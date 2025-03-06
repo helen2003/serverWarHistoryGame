@@ -11,8 +11,8 @@ import { AchievementService } from './achievement.service';
 import { AchievementModel } from './model/achievement.model';
 import { Achievement, Reward } from '@prisma/client';
 import { GetAchievmentArgs } from './dto/args/get-all-achievment.args';
-import { RewardModel } from 'src/reward/model/reward.model';
-import { RewardService } from 'src/reward/reward.service';
+import { RewardModel } from '../reward/model/reward.model';
+import { RewardService } from '../reward/reward.service';
 import { CreateUpdateAchievmentInput } from './dto/input/create-update-achievment.input';
 
 @Resolver(() => AchievementModel)

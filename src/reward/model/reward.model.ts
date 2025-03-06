@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Reward } from '@prisma/client';
-import { TypeRewardModel } from 'src/type-reward/model/type-reward.model';
+import { TypeRewardModel } from '../../type-reward/model/type-reward.model';
 
 @ObjectType()
 export class RewardModel implements Reward {

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { Answer, Question } from '@prisma/client';
 import { UpdateAnswerInput } from './dto/input/update-answer.input';
 

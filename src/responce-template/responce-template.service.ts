@@ -1,8 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ResponceTemplate } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { UpdateResponceTemplateInput } from './dto/update-response-template.input';
-// import { CreateUpdateResponceTemplateInput } from './dto/create-update-responce-template.input';
 
 @Injectable()
 export class ResponceTemplateService {

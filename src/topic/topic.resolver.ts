@@ -40,7 +40,7 @@ export class TopicResolver {
   @Mutation(() => TopicModel)
   createTopic(
     @Args('name') name: string,
-    @Args('disciplinaId', { type: () => Int }) disciplinaId: number,
+    @Args('disciplinaId', { type: () => Int, nullable: true }) disciplinaId: number,
   ): Promise<Topic> {
     return this.topicService.create(name, disciplinaId);
   }

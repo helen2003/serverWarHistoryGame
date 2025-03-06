@@ -5,7 +5,7 @@ import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthUserDto } from './dto/auth-user.dto';
 import { TokenInterface } from './interface/token.interface';
 import { RegistationDto } from './dto/registation-dto.dto';
-import { LocalAuthGuard } from 'src/common/guards/localAuthGuard.guard';
+import { LocalAuthGuard } from '../common/guards/localAuthGuard.guard';
 import { JwtPayloadInterface } from './interface/JwtPayload.interface';
 
 @Controller('auth')

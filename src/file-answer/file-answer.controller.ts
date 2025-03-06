@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UploadedFile, UsePipes } from '@nestjs/common';
 import { FileAnswerService } from './file-answer.service';
-import { ApiOneFile } from 'src/common/decorators/api-file.decorator';
-import { FileValidationPipe } from 'src/common/pipes/file-validation.pipes';
+import { ApiOneFile } from '../common/decorators/api-file.decorator';
+import { FileValidationPipe } from '../common/pipes/file-validation.pipes';
 import { FileAnswerFileUploadDto } from './output/response-file-upload.dto';
 
 @Controller('file-answer')

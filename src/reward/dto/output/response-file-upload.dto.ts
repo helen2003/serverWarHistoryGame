@@ -1,5 +1,5 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { RewardModel } from 'src/reward/model/reward.model';
+import { RewardModel } from '../../../reward/model/reward.model';
 
 export class ResponseFileUploadDto extends PickType(RewardModel, [
   'id',

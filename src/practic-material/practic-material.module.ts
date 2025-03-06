@@ -1,11 +1,11 @@
 import { Global, Module } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import * as path from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { PracticMaterialService } from './practic-material.service';
 import { PracticMaterialController } from './practic-materialcontroller';
 import { PracticMaterialResolver } from './practic-material.resolver';
-import { TypeFileModule } from 'src/type-file/type-file.module';
+import { TypeFileModule } from '../type-file/type-file.module';
 
 @Global()
 @Module({

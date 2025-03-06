@@ -1,5 +1,5 @@
 import { ArgsType, Field, Int, PickType } from '@nestjs/graphql';
-import { AchievementModel } from 'src/achievement/model/achievement.model';
+import { AchievementModel } from '../../model/achievement.model';
 
 @ArgsType()
 export class GetAchievmentArgs extends PickType(AchievementModel, [
