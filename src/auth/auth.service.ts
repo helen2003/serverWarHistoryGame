@@ -6,7 +6,7 @@ import { TokenInterface } from './interface/token.interface';
 import { ConfigService } from '@nestjs/config';
 import { JwtPayloadInterface } from './interface/JwtPayload.interface';
 import { User } from '@prisma/client';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { RegistationDto } from './dto/registation-dto.dto';
 
 @Injectable()
