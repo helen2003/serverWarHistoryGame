@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Topic } from '@prisma/client';
 import { PrismaService } from '../common/prisma/prisma.service';
-import { UpdateTopicInput } from './dto/update-model.input';
+import { UpdateTopicInput } from './dto/input/update-model.input';
 
 @Injectable()
 export class TopicService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+  ) {}
 
   async create(name: string, disciplinaId?: number): Promise<Topic> {
     return this.prisma.topic.create({
@@ -16,11 +18,26 @@ export class TopicService {
   async findOne(topicId: number): Promise<Topic> {
     return this.prisma.topic.findUnique({
       where: { id: topicId },
+      include: {
+        _count: {
+          select: {
+            Question: true,
+          },
+        },
+      },
     });
   }
 
   async findAll(): Promise<Topic[]> {
-    return this.prisma.topic.findMany({});
+    return this.prisma.topic.findMany({
+      include: {
+        _count: {
+          select: {
+            Question: true,
+          },
+        },
+      },
+    });
   }
 
   async update(updateTopicData: UpdateTopicInput): Promise<Topic> {

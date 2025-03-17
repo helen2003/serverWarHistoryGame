@@ -7,7 +7,7 @@ import { CreateResponceTemplateInput } from '../../../responce-template/dto/crea
 export class CreateQuestionInput extends PickType(QuestionModel, [
   'text',
   'topicId',
-  'scaleImportantId',
+  // 'scaleImportantId',
   'typeMiniGameId',
   'typeTaskId',
 ]) {
@@ -15,7 +15,7 @@ export class CreateQuestionInput extends PickType(QuestionModel, [
   text: string;
 
   @Field(() => Int, { nullable: true })
-  scaleImportantId: number;
+  scaleImportantId?: number;
 
   @Field(() => Int)
   topicId: number;
@@ -29,6 +29,6 @@ export class CreateQuestionInput extends PickType(QuestionModel, [
   @Field(() => [CreateAnswerInput])
   Answer: CreateAnswerInput[];
 
-  @Field(() => [CreateResponceTemplateInput])
-  ResponceTemplate: CreateResponceTemplateInput[];
+  @Field(() => [CreateResponceTemplateInput], { nullable: 'itemsAndList' })
+  ResponceTemplate?: CreateResponceTemplateInput[];
 }

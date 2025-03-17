@@ -15,6 +15,5 @@ export class TypeRewardModel implements TypeReward {
   @Field(() => Date)
   updated_at: Date;
 
-  @Field(() => Date)
   deleted_at: Date;
 }

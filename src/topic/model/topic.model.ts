@@ -3,6 +3,12 @@ import { Topic } from '@prisma/client';
 import { TheoryMaterialModel } from '../../theory-material/model/theory-material.model';
 
 @ObjectType()
+class Count {
+  @Field(() => Int)
+  Question: number;
+}
+
+@ObjectType()
 export class TopicModel implements Topic {
   @Field(() => Int)
   id: number;
@@ -13,7 +19,7 @@ export class TopicModel implements Topic {
   @Field(() => Int)
   disciplinaId: number;
 
-  @Field(() => [TheoryMaterialModel])
+  @Field(() => [TheoryMaterialModel], { nullable: true })
   TheoryMaterial: TheoryMaterialModel[];
 
   @Field(() => Date)
@@ -23,4 +29,7 @@ export class TopicModel implements Topic {
   updated_at: Date;
 
   deleted_at: Date;
+
+  @Field(() => Count)
+  _count: Count;
 }

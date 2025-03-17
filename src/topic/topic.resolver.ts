@@ -10,7 +10,7 @@ import {
 import { TopicService } from './topic.service';
 import { TopicModel } from './model/topic.model';
 import { TheoryMaterial, Topic } from '@prisma/client';
-import { UpdateTopicInput } from './dto/update-model.input';
+import { UpdateTopicInput } from './dto/input/update-model.input';
 import { TheoryMaterialModel } from '../theory-material/model/theory-material.model';
 import { TheoryMaterialService } from '../theory-material/theory-material.service';
 
@@ -27,11 +27,13 @@ export class TopicResolver {
   }
 
   @Query(() => TopicModel)
-  getTopicOne(id: number): Promise<Topic> {
+  getTopicOne(@Args('id') id: number): Promise<Topic> {
     return this.topicService.findOne(id);
   }
 
-  @ResolveField('TheoryMaterial', () => [TheoryMaterialModel], { nullable: true })
+  @ResolveField('TheoryMaterial', () => [TheoryMaterialModel], {
+    nullable: true,
+  })
   getTheoryMaterial(@Parent() topic: TopicModel): Promise<TheoryMaterial[]> {
     const { id } = topic;
     return this.theoryMaterialSevise.gelAll({ topicId: id, typeFileId: null });
@@ -40,7 +42,8 @@ export class TopicResolver {
   @Mutation(() => TopicModel)
   createTopic(
     @Args('name') name: string,
-    @Args('disciplinaId', { type: () => Int, nullable: true }) disciplinaId: number,
+    @Args('disciplinaId', { type: () => Int, nullable: true })
+    disciplinaId: number,
   ): Promise<Topic> {
     return this.topicService.create(name, disciplinaId);
   }

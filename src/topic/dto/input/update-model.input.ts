@@ -1,5 +1,5 @@
 import { Field, InputType, Int, PickType } from '@nestjs/graphql';
-import { TopicModel } from '../model/topic.model';
+import { TopicModel } from '../../model/topic.model';
 
 @InputType()
 export class UpdateTopicInput extends PickType(TopicModel, [

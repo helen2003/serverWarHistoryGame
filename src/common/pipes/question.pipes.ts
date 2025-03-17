@@ -13,7 +13,7 @@ export class QuestionValidationPipe implements PipeTransform<any> {
 
   async transform(
     data: CreateQuestionInput,
-    metadata: ArgumentMetadata,
+    // metadata: ArgumentMetadata,
   ): Promise<any> {
     if (!data.Answer) {
       throw new HttpException(

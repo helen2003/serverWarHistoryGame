@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TopicResolver } from './topic.resolver';
-import { TopicService } from './topic.service';
-import { TheoryMaterialModule } from '../theory-material/theory-material.module';
-import { PrismaService } from '../common/prisma/prisma.service';
+import { TopicResolver } from '../topic.resolver';
+import { TopicService } from '../topic.service';
+import { TheoryMaterialModule } from '../../theory-material/theory-material.module';
+import { PrismaService } from '../../common/prisma/prisma.service';
 
 let resolver: TopicResolver;
 let service: TopicService;
@@ -23,14 +23,7 @@ describe('TopicResolver', () => {
   });
 
   it('should return expected result', async () => {
-    const result: {
-      name: string;
-      id: number;
-      disciplinaId: number;
-      created_at: Date;
-      updated_at: Date;
-      deleted_at: null;
-    } = {
+    const result = {
       name: 'string',
       id: 1,
       disciplinaId: 1,

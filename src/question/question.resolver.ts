@@ -91,7 +91,6 @@ export class QuestionResolver {
   @ResolveField('Topic', () => TopicModel)
   getTopic(@Parent() question: QuestionModel): Promise<Topic> {
     const { topicId } = question;
-
     return this.topicService.findOne(topicId);
   }
 

@@ -11,7 +11,7 @@ export class GetQuestionAllArgs extends PickType(QuestionModel, [
   @Field(() => Int, { nullable: true })
   take: number;
 
-  @Field(() => Boolean)
+  @Field(() => Boolean, { nullable: true })
   random: boolean;
 
   @Field(() => Int, { nullable: true })
