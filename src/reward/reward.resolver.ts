@@ -26,6 +26,11 @@ export class RewardResolver {
     return this.rewardService.findAll();
   }
 
+  @Query(() => [RewardModel])
+  getRewardByType(@Args('id', { type: () => Int }) id: number): Promise<Reward[]> {
+    return this.rewardService.findManyByType(id);
+  }
+
   @Query(() => RewardModel)
   getRewardAOne(@Args('id', { type: () => Int }) id: number): Promise<Reward> {
     return this.rewardService.findOne(id);

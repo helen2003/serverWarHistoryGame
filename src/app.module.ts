@@ -30,7 +30,7 @@ import { DisciplinaModule } from './disciplina/disciplina.module';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), '../common/graphql/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'src/common/graphql/schema.gql'),
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),

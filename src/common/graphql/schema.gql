@@ -7,7 +7,6 @@ type TypeRewardModel {
   name: String!
   created_at: DateTime!
   updated_at: DateTime!
-  deleted_at: DateTime!
 }
 
 """
@@ -20,7 +19,7 @@ type RewardModel {
   name: String!
   description: String!
   typeRewardId: Int!
-  url: String!
+  url: String
   TypeReward: TypeRewardModel
   created_at: DateTime!
   updated_at: DateTime!
@@ -73,6 +72,10 @@ type TheoryMaterialModel {
   updated_at: DateTime!
 }
 
+type Count {
+  Question: Int!
+}
+
 type TopicModel {
   id: Int!
   name: String!
@@ -80,6 +83,7 @@ type TopicModel {
   TheoryMaterial: [TheoryMaterialModel!]
   created_at: DateTime!
   updated_at: DateTime!
+  _count: Count!
 }
 
 type TypeMiniGameModel {
@@ -107,12 +111,11 @@ type FileAnswerModel {
 type AnswerModel {
   id: Int!
   text: String!
-  correct: String!
+  correct: String
   questionId: Int!
   FileAnswer: [FileAnswerModel!]!
   created_at: DateTime!
   updated_at: DateTime!
-  TypeMiniGame: [FileAnswerModel!]!
 }
 
 type PracticMaterialModel {
@@ -160,15 +163,16 @@ type Query {
   getRankAll: [RankModel!]!
   getAchievmentAll(rewardId: Int, userId: Int): [AchievementModel!]!
   getRewardAll: [RewardModel!]!
+  getRewardByType(id: Int!): [RewardModel!]!
   getRewardAOne(id: Int!): RewardModel!
   getTypeRewardAll: [TypeRewardModel!]!
   getTopicAll: [TopicModel!]!
-  getTopicOne: TopicModel!
+  getTopicOne(id: Float!): TopicModel!
   getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
   getTypeFileAll: [TypeFileModel!]!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
-  getQuestionAll(take: Int, random: Boolean!, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): QuestionAllOutput!
+  getQuestionAll(take: Int, random: Boolean, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): QuestionAllOutput!
   getQuestionAOne(id: Int!): QuestionModel!
   getAllPracticMaterial(questionId: Int, typeFileId: Int): PracticMaterialModel!
 }
@@ -200,7 +204,6 @@ type Mutation {
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
   updateQuestion(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
   deleteQuestion(id: Int!, questionId: Int!): ResponceTemplateModel!
-  updateAnswer(id: Int!, updateAnswerData: UpdateAnswerInput!): AnswerModel!
   deleteFileAnswer(id: Int!): FileAnswerModel!
   updatePracticMaterialId(idFiles: [Int!]!, idQuestion: Int!): Int!
   deletePracticMaterial(id: Int!): PracticMaterialModel!
@@ -249,11 +252,5 @@ input CreateResponceTemplateInput {
 input UpdateResponceTemplateInput {
   id: Int!
   text: String!
-  questionId: Int!
-}
-
-input UpdateAnswerInput {
-  text: String!
-  correct: String
   questionId: Int!
 }

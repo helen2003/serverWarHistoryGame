@@ -23,6 +23,14 @@ export class RewardService {
     return this.prisma.reward.findMany({});
   }
 
+  async findManyByType(idTypeReward: number): Promise<Reward[]> {
+    return this.prisma.reward.findMany({
+      where: {
+        typeRewardId: idTypeReward,
+      },
+    });
+  }
+
   async update(
     id: number,
     updateRewardInput: CreateUpdateRewardInput,
