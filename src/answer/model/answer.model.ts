@@ -10,7 +10,7 @@ export class AnswerModel implements Answer {
   @Field(() => String)
   text: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   correct: string;
 
   @Field(() => Int)

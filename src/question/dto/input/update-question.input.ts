@@ -6,7 +6,6 @@ export class UpdateQuestionInput extends PickType(QuestionModel, [
   'text',
   'topicId',
   'scaleImportantId',
-  'typeMiniGameId',
   'typeTaskId',
 ]) {
   @Field(() => String)
@@ -17,9 +16,6 @@ export class UpdateQuestionInput extends PickType(QuestionModel, [
 
   @Field(() => Int)
   topicId: number;
-
-  @Field(() => Int)
-  typeMiniGameId: number;
 
   @Field(() => Int)
   typeTaskId: number;

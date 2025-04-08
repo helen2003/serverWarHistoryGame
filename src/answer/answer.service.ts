@@ -7,23 +7,11 @@ import { UpdateAnswerInput } from './dto/input/update-answer.input';
 export class AnswerService {
   constructor(private prisma: PrismaService) {}
 
-  async findAllByTask(questionId: number): Promise<Answer[]> {
+  async findAllByQuestion(questionId: number): Promise<Answer[]> {
     return this.prisma.answer.findMany({
       where: { questionId: questionId },
     });
   }
 
-  async updateOne(
-    id: number,
-    updateAnswerData: UpdateAnswerInput,
-  ): Promise<Answer> {
-    return this.prisma.answer.update({
-      where: {
-        id: id,
-      },
-      data: {
-        ...updateAnswerData,
-      },
-    });
-  }
+  
 }

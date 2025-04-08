@@ -23,6 +23,7 @@ export const questionReqTrue = {
       correct: 'false',
     },
   ],
+  ResponceTemplate: [],
 };
 
 export const questionResTrue = {

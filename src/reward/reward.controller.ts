@@ -1,5 +1,12 @@
-import { Body, Controller, Post, UploadedFile, UsePipes } from '@nestjs/common';
-import { ApiOneFile } from '../common/decorators/api-file.decorator';
+import {
+  Controller,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UsePipes,
+} from '@nestjs/common';
+import { ApiOneFileWithID } from '../common/decorators/api-file.decorator';
 import { FileValidationPipe } from '../common/pipes/file-validation.pipes';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import { RewardService } from './reward.service';
@@ -9,12 +16,13 @@ export class RewardController {
   constructor(private readonly rewardService: RewardService) {}
 
   @Post('upload-file')
-  @ApiOneFile()
-  @UsePipes(new FileValidationPipe(['jpg', 'png']))
+  @ApiOneFileWithID()
   uploadFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() id: number,
-  ): Promise<ResponseFileUploadDto> {
-    return this.rewardService.createImage(id, file);
+    @UploadedFile(new FileValidationPipe(['jpg', 'png']))
+    file: Express.Multer.File,
+    @Query('id') id: string,
+  ) {
+    const idNumber: number = Number(id);
+    return this.rewardService.createImage(idNumber, file);
   }
 }

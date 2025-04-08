@@ -4,7 +4,7 @@ import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import {
   getTypeFile,
   writeFile,
-} from '../common/function/function-wrire-file';
+} from '../common/function/function-file';
 import { PracticMaterial } from '@prisma/client';
 import { GetPracticMaterialArgs } from './dto/args/practic-material.args';
 

@@ -8,7 +8,6 @@ import {
 } from '@nestjs/swagger';
 import { ResponseFileUploadDto } from './dto/response-file-upload.dto';
 
-
 export function ApiOneFile() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка одного файла' }),
@@ -33,13 +32,13 @@ export function ApiManyFiles() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка нескольких файлов' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto, isArray: true }),
-    UseInterceptors(FilesInterceptor('file')),
+    UseInterceptors(FilesInterceptor('files')),
     ApiConsumes('multipart/form-data'),
     ApiBody({
       schema: {
         type: 'object',
         properties: {
-          file: {
+          files: {
             type: 'array',
             items: {
               type: 'string',
@@ -48,6 +47,55 @@ export function ApiManyFiles() {
           },
         },
       },
-    })
+    }),
+  );
+}
+
+export function ApiOneFileWithID() {
+  return applyDecorators(
+    ApiOperation({ summary: 'Загрузка одного файла' }),
+    ApiResponse({ status: 200, type: ResponseFileUploadDto }),
+    UseInterceptors(FileInterceptor('file')),
+    ApiConsumes('multipart/form-data'),
+    ApiBody({
+      schema: {
+        type: 'object',
+        properties: {
+          file: {
+            type: 'string',
+            format: 'binary',
+          },
+          // id: {
+          //   type: 'number',
+          // },
+        },
+      },
+    }),
+  );
+}
+
+export function ApiManyFilesWithID() {
+  return applyDecorators(
+    ApiOperation({ summary: 'Загрузка нескольких файлов' }),
+    ApiResponse({ status: 200, type: ResponseFileUploadDto, isArray: true }),
+    UseInterceptors(FilesInterceptor('files')),
+    ApiConsumes('multipart/form-data'),
+    ApiBody({
+      schema: {
+        type: 'object',
+        properties: {
+          files: {
+            type: 'array',
+            items: {
+              type: 'string',
+              format: 'binary',
+            },
+          },
+          // id: {
+          //   type: 'number',
+          // },
+        },
+      },
+    }),
   );
 }

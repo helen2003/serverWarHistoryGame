@@ -1,4 +1,4 @@
-import { QuestionValidationPipe } from '../../common/pipes/question.pipes';
+import { QuestionCreateValidationPipe } from '../../common/pipes/question-create.pipes';
 import {
   ErrorIncorrectFieldFilling,
   ErrorLenghtAnwser_4,
@@ -12,14 +12,14 @@ import {
 } from './data';
 
 describe('QuestionValidationPipe', () => {
-  let pipe: QuestionValidationPipe;
+  let pipe: QuestionCreateValidationPipe;
 
   beforeEach(() => {
-    pipe = new QuestionValidationPipe();
+    pipe = new QuestionCreateValidationPipe();
   });
 
   it('should be defined', () => {
-    expect(new QuestionValidationPipe()).toBeDefined();
+    expect(new QuestionCreateValidationPipe()).toBeDefined();
   });
 
   it(`should return the data unchanged`, async () => {

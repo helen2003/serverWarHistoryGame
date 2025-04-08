@@ -29,7 +29,6 @@ function checkFile(
   } catch (error) {
     throw new HttpException('Ошибка загрузки файла.', HttpStatus.BAD_REQUEST);
   }
-
   return true;
 }
 

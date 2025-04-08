@@ -12,21 +12,13 @@ export class QuestionService {
 
   async create(createQuestionData: CreateQuestionInput): Promise<Question> {
     const { Answer, ResponceTemplate, ...questionData } = createQuestionData;
-    if (ResponceTemplate)
-      return this.prisma.question.create({
-        data: {
-          ...questionData,
-          Answer: { createMany: { data: [...Answer] } },
-          ResponceTemplate: { createMany: { data: [...ResponceTemplate] } },
-        },
-      });
-    else
-      return this.prisma.question.create({
-        data: {
-          ...questionData,
-          Answer: { createMany: { data: [...Answer] } },
-        },
-      });
+    return this.prisma.question.create({
+      data: {
+        ...questionData,
+        Answer: { createMany: { data: [...Answer] } },
+        ResponceTemplate: { createMany: { data: [...ResponceTemplate] } },
+      },
+    });
   }
 
   async findOne(id: number): Promise<Question> {

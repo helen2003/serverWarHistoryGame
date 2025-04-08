@@ -3,7 +3,7 @@ import { PrismaService } from '../common/prisma/prisma.service';
 import { TheoryMaterial } from '@prisma/client';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import { GetTheoryMaterialMArgs } from './dto/args/theory-material.args';
-import { getTypeFile, writeFile } from '../common/function/function-wrire-file';
+import { getTypeFile, writeFile } from '../common/function/function-file';
 
 @Injectable()
 export class TheoryMaterialService {

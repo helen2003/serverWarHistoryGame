@@ -3,7 +3,7 @@ import { Reward } from '@prisma/client';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { CreateUpdateRewardInput } from './dto/input/create-reward.input';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
-import { writeFile } from '../common/function/function-wrire-file';
+import { writeFile } from '../common/function/function-file';
 
 @Injectable()
 export class RewardService {
@@ -45,21 +45,13 @@ export class RewardService {
     });
   }
 
-  async createImage(
-    id: number,
-    file: Express.Multer.File,
-  ): Promise<ResponseFileUploadDto> {
+  async createImage(idReward: number, file: Express.Multer.File) {
     const fileName = writeFile(file);
     return this.prisma.reward.update({
       where: {
-        id: id,
+        id: idReward,
       },
       data: { url: fileName },
-      select: {
-        id: true,
-        url: true,
-        name: true,
-      },
     });
   }
 }

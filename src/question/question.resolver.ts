@@ -35,7 +35,7 @@ import { ResponceTemplateModel } from '../responce-template/model/responce-templ
 import { PracticMaterialModel } from '../practic-material/model/practic-material.model';
 import { QuestionAllOutput } from './dto/ouput/findAll-question.output';
 import { UsePipes } from '@nestjs/common';
-import { QuestionValidationPipe } from '../common/pipes/question.pipes';
+import { QuestionCreateValidationPipe } from '../common/pipes/question-create.pipes';
 
 @Resolver(() => QuestionModel)
 export class QuestionResolver {
@@ -97,7 +97,7 @@ export class QuestionResolver {
   @ResolveField('Answer', () => [AnswerModel])
   getAnswer(@Parent() question: QuestionModel): Promise<Answer[]> {
     const { id } = question;
-    return this.answerService.findAllByTask(id);
+    return this.answerService.findAllByQuestion(id);
   }
 
   @ResolveField('TypeMiniGame', () => TypeMiniGameModel)
@@ -107,7 +107,7 @@ export class QuestionResolver {
   }
 
   @Mutation(() => QuestionModel)
-  @UsePipes(new QuestionValidationPipe())
+  @UsePipes(new QuestionCreateValidationPipe())
   createQuestion(
     @Args('createQuestionData') createQuestionInput: CreateQuestionInput,
   ): Promise<Question> {

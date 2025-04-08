@@ -20,16 +20,8 @@ export class AnswerResolver {
     private fileAnswerService: FileAnswerService,
   ) {}
 
-  @Mutation(() => AnswerModel)
-  updateAnswer(
-    @Args('id', { type: () => Int }) id: number,
-    @Args('updateAnswerData') updateAnswerInput: UpdateAnswerInput,
-  ): Promise<Answer> {
-    return this.answerService.updateOne(id, updateAnswerInput);
-  }
-
-  @ResolveField('TypeMiniGame', () => [FileAnswerModel])
-  getTypeMiniGame(@Parent() answer: AnswerModel): Promise<FileAnswer[]> {
+  @ResolveField('FileAnswer', () => [FileAnswerModel])
+  getFileAnswer(@Parent() answer: AnswerModel): Promise<FileAnswer[]> {
     const { id } = answer;
     return this.fileAnswerService.getAll(id);
   }
