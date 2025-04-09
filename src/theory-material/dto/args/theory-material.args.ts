@@ -3,11 +3,11 @@ import { TheoryMaterialModel } from '../../../theory-material/model/theory-mater
 
 @ArgsType()
 export class GetTheoryMaterialMArgs extends PickType(TheoryMaterialModel, [
-  'topicId',
+  'subtopicId',
   'typeFileId',
 ]) {
   @Field(() => Int, { nullable: true })
-  topicId: number;
+  subtopicId: number;
 
   @Field(() => Int, { nullable: true })
   typeFileId: number;

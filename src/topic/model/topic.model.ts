@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Topic } from '@prisma/client';
-import { TheoryMaterialModel } from '../../theory-material/model/theory-material.model';
+import { SubtopicModel } from '../../subtopic/model/subtopic.model';
 
 @ObjectType()
 class Count {
@@ -19,8 +19,8 @@ export class TopicModel implements Topic {
   @Field(() => Int)
   disciplinaId: number;
 
-  @Field(() => [TheoryMaterialModel], { nullable: true })
-  TheoryMaterial: TheoryMaterialModel[];
+  @Field(() => [SubtopicModel], { nullable: true })
+  Subtopic: SubtopicModel[];
 
   @Field(() => Date)
   created_at: Date;

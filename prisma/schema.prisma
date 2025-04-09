@@ -61,23 +61,38 @@ model Topic {
 
   Disciplina Disciplina? @relation(fields: [disciplinaId], references: [id])
 
-  TheoryMaterial TheoryMaterial[]
-  Question       Question[]
-  Testing        Testing[]
+  Question Question[]
+  Testing  Testing[]
+  Subtopic Subtopic[]
 }
 
-model TheoryMaterial {
-  id         Int    @id @default(autoincrement())
-  url        String
-  topicId    Int?
-  typeFileId Int?
+model Subtopic {
+  id      Int    @id @default(autoincrement())
+  name    String
+  topicId Int?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  Topic    Topic?    @relation(fields: [topicId], references: [id])
+  Topic Topic? @relation(fields: [topicId], references: [id])
+
+  TheoryMaterial TheoryMaterial[]
+}
+
+model TheoryMaterial {
+  id          Int    @id @default(autoincrement())
+  url         String
+  description String
+  subtopicId  Int?
+  typeFileId  Int?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
   TypeFile TypeFile? @relation(fields: [typeFileId], references: [id])
+  Subtopic Subtopic? @relation(fields: [subtopicId], references: [id])
 }
 
 model PracticMaterial {
@@ -203,7 +218,7 @@ model Achievement {
   Reward Reward? @relation(fields: [rewardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
-  
+
 model Question {
   id               Int    @id @default(autoincrement())
   text             String

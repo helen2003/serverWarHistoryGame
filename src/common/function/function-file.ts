@@ -2,7 +2,6 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as uuid from 'uuid';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import * as Upload from 'graphql-upload/Upload.js';
 
 export function writeFile(file: Express.Multer.File): string {
   try {

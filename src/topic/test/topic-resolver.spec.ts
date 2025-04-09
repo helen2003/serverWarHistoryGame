@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TopicResolver } from '../topic.resolver';
 import { TopicService } from '../topic.service';
-import { TheoryMaterialModule } from '../../theory-material/theory-material.module';
 import { PrismaService } from '../../common/prisma/prisma.service';
+import { SubtopicModule } from '../../subtopic/subtopic.module';
 
 let resolver: TopicResolver;
 let service: TopicService;
@@ -10,7 +10,7 @@ let service: TopicService;
 beforeEach(async () => {
   const module: TestingModule = await Test.createTestingModule({
     providers: [TopicResolver, TopicService, PrismaService],
-    imports: [TheoryMaterialModule],
+    imports: [SubtopicModule],
   }).compile();
 
   resolver = module.get<TopicResolver>(TopicResolver);

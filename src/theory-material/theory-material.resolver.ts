@@ -21,27 +21,27 @@ export class TheoryMaterialResolver {
     private typeFileService: TypeFileService,
   ) {}
 
-  @Mutation(() => Int)
-  updateTheoryMaterialId(
-    @Args('idFiles', { type: () => [Int] }) idFiles: Array<number>,
-    @Args('idTopic', { type: () => Int }) idTopic: number,
-  ): Promise<number> {
-    return this.theoryMaterialService.updateIdFile(idFiles, idTopic);
-  }
+  // @Mutation(() => Int)
+  // updateTheoryMaterialId(
+  //   @Args('idFiles', { type: () => [Int] }) idFiles: Array<number>,
+  //   @Args('idTopic', { type: () => Int }) idTopic: number,
+  // ): Promise<number> {
+  //   return this.theoryMaterialService.updateIdFile(idFiles, idTopic);
+  // }
 
-  @Query(() => TheoryMaterialModel)
-  getAllTheoryMaterial(
-    @Args() findAllTheoryMaterialArgs: GetTheoryMaterialMArgs,
-  ): Promise<TheoryMaterial[]> {
-    return this.theoryMaterialService.gelAll(findAllTheoryMaterialArgs);
-  }
+  // @Query(() => TheoryMaterialModel)
+  // getAllTheoryMaterial(
+  //   @Args() findAllTheoryMaterialArgs: GetTheoryMaterialMArgs,
+  // ): Promise<TheoryMaterial[]> {
+  //   return this.theoryMaterialService.gelAll(findAllTheoryMaterialArgs);
+  // }
 
-  @Mutation(() => TheoryMaterialModel)
-  deleteTheoryMaterial(
-    @Args('id', { type: () => Int }) id: number,
-  ): Promise<TheoryMaterial> {
-    return this.theoryMaterialService.delete(id);
-  }
+  // @Mutation(() => TheoryMaterialModel)
+  // deleteTheoryMaterial(
+  //   @Args('id', { type: () => Int }) id: number,
+  // ): Promise<TheoryMaterial> {
+  //   return this.theoryMaterialService.delete(id);
+  // }
 
   @ResolveField('TypeFile', () => TypeFileModel)
   getTypeFile(@Parent() material: TheoryMaterialModel): Promise<TypeFile> {

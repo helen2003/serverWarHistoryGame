@@ -10,8 +10,11 @@ export class TheoryMaterialModel implements TheoryMaterial {
   @Field(() => String)
   url: string;
 
+  @Field(() => String)
+  description: string;
+
   @Field(() => Int)
-  topicId: number;
+  subtopicId: number;
 
   @Field(() => Int)
   typeFileId: number;

@@ -5,9 +5,7 @@ import { UpdateTopicInput } from './dto/input/update-model.input';
 
 @Injectable()
 export class TopicService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(name: string, disciplinaId?: number): Promise<Topic> {
     return this.prisma.topic.create({

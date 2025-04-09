@@ -9,16 +9,16 @@ import {
 } from '@nestjs/graphql';
 import { TopicService } from './topic.service';
 import { TopicModel } from './model/topic.model';
-import { TheoryMaterial, Topic } from '@prisma/client';
+import { Subtopic, TheoryMaterial, Topic } from '@prisma/client';
 import { UpdateTopicInput } from './dto/input/update-model.input';
-import { TheoryMaterialModel } from '../theory-material/model/theory-material.model';
-import { TheoryMaterialService } from '../theory-material/theory-material.service';
+import { SubtopicModel } from '../subtopic/model/subtopic.model';
+import { SubtopicService } from '../subtopic/subtopic.service';
 
 @Resolver(() => TopicModel)
 export class TopicResolver {
   constructor(
     private readonly topicService: TopicService,
-    private theoryMaterialSevise: TheoryMaterialService,
+    private subtopicSevise: SubtopicService,
   ) {}
 
   @Query(() => [TopicModel])
@@ -31,12 +31,12 @@ export class TopicResolver {
     return this.topicService.findOne(id);
   }
 
-  @ResolveField('TheoryMaterial', () => [TheoryMaterialModel], {
+  @ResolveField('Subtopic', () => [SubtopicModel], {
     nullable: true,
   })
-  getTheoryMaterial(@Parent() topic: TopicModel): Promise<TheoryMaterial[]> {
+  getSubtopic(@Parent() topic: TopicModel): Promise<Subtopic[]> {
     const { id } = topic;
-    return this.theoryMaterialSevise.gelAll({ topicId: id, typeFileId: null });
+    return this.subtopicSevise.findAllByTopic(id);
   }
 
   @Mutation(() => TopicModel)

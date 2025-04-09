@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Post,
   UploadedFile,
@@ -17,21 +18,32 @@ import { FilesValidationPipe, FileValidationPipe } from '../common/pipes/file-va
 export class TheoryMaterialController {
   constructor(private readonly theoryMaterialService: TheoryMaterialService) {}
 
+  // @Post('upload-file')
+  // @ApiOneFile()
+  // @UsePipes(new FileValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
+  // uploadFile(
+  //   @UploadedFile() file: Express.Multer.File,
+  // ): Promise<ResponseFileUploadDto> {
+  //   return this.theoryMaterialService.create(file);
+  // }
+
   @Post('upload-file')
   @ApiOneFile()
   @UsePipes(new FileValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
   uploadFile(
     @UploadedFile() file: Express.Multer.File,
+    @Body() description: string
   ): Promise<ResponseFileUploadDto> {
-    return this.theoryMaterialService.create(file);
+    console.log(description)
+    return this.theoryMaterialService.create(file, description);
   }
 
-  @Post('upload-files')
-  @ApiManyFiles()
-  @UsePipes(new FilesValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
-  uploadFiles(
-    @UploadedFiles() files: Array<Express.Multer.File>,
-  ): Promise<ResponseFileUploadDto[]> {
-    return this.theoryMaterialService.createMany(files);
-  }
+  // @Post('upload-files')
+  // @ApiManyFiles()
+  // @UsePipes(new FilesValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
+  // uploadFiles(
+  //   @UploadedFiles() files: Array<Express.Multer.File>,
+  // ): Promise<ResponseFileUploadDto[]> {
+  //   return this.theoryMaterialService.createMany(files);
+  // }
 }

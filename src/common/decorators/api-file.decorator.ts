@@ -65,9 +65,9 @@ export function ApiOneFileWithID() {
             type: 'string',
             format: 'binary',
           },
-          // id: {
-          //   type: 'number',
-          // },
+          id: {
+            type: 'number',
+          },
         },
       },
     }),
