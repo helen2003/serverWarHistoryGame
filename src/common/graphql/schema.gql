@@ -65,9 +65,19 @@ type TypeFileModel {
 type TheoryMaterialModel {
   id: Int!
   url: String!
-  topicId: Int!
+  description: String!
+  subtopicId: Int!
   typeFileId: Int!
   TypeFile: TypeFileModel!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type SubtopicModel {
+  id: Int!
+  name: String!
+  topicId: Int!
+  TheoryMaterial: [TheoryMaterialModel!]
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -80,7 +90,7 @@ type TopicModel {
   id: Int!
   name: String!
   disciplinaId: Int!
-  TheoryMaterial: [TheoryMaterialModel!]
+  Subtopic: [SubtopicModel!]
   created_at: DateTime!
   updated_at: DateTime!
   _count: Count!
@@ -168,7 +178,6 @@ type Query {
   getTypeRewardAll: [TypeRewardModel!]!
   getTopicAll: [TopicModel!]!
   getTopicOne(id: Float!): TopicModel!
-  getAllTheoryMaterial(topicId: Int, typeFileId: Int): TheoryMaterialModel!
   getTypeFileAll: [TypeFileModel!]!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
@@ -196,8 +205,6 @@ type Mutation {
   deleteTypeReward(id: Int!): TypeRewardModel!
   createTopic(name: String!, disciplinaId: Int): TopicModel!
   deleteTopic(id: Int!): TopicModel!
-  updateTheoryMaterialId(idFiles: [Int!]!, idTopic: Int!): Int!
-  deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): TypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
