@@ -6,7 +6,7 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 export class SubtopicService {
   constructor(private prisma: PrismaService) {}
 
-  async create(name: string, topicId?: number): Promise<Subtopic> {
+  async create(name: string, topicId: number): Promise<Subtopic> {
     return this.prisma.subtopic.create({
       data: { name: name, topicId: topicId },
     });

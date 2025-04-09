@@ -1,30 +1,45 @@
-import { Body, Controller, Post, UploadedFile, UploadedFiles, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Query,
+  UploadedFile,
+  UploadedFiles,
+  UsePipes,
+} from '@nestjs/common';
 import { FileAnswerService } from './file-answer.service';
-import { ApiManyFilesWithID, ApiOneFileWithID } from '../common/decorators/api-file.decorator';
-import { FilesValidationPipe, FileValidationPipe } from '../common/pipes/file-validation.pipes';
+import {
+  FilesValidationPipe,
+  FileValidationPipe,
+} from '../common/pipes/file-validation.pipes';
 import { FileAnswerFileUploadDto } from './output/response-file-upload.dto';
+import {
+  ApiManyFilesWithIdQuery,
+  ApiOneFileWithIdQuery,
+} from 'src/common/decorators/api-file.decorator';
 
 @Controller('file-answer')
 export class FileAnswerController {
   constructor(private readonly fileAnswerService: FileAnswerService) {}
 
   @Post('upload-file')
-  @ApiOneFileWithID()
-  @UsePipes(new FileValidationPipe(['jpg', 'png']))
+  @ApiOneFileWithIdQuery()
   uploadFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() id: number,
+    @UploadedFile(new FileValidationPipe(['jpg', 'png']))
+    file: Express.Multer.File,
+    @Query('id') id: string,
   ): Promise<FileAnswerFileUploadDto> {
-    return this.fileAnswerService.create(file, id);
+    const idNumber: number = Number(id);
+    return this.fileAnswerService.create(file, idNumber);
   }
 
   @Post('upload-files')
-  @ApiManyFilesWithID()
-  @UsePipes(new FilesValidationPipe(['jpg','png']))
+  @ApiManyFilesWithIdQuery()
   uploadFiles(
-    @UploadedFiles() files: Array<Express.Multer.File>,
-    @Body() id: number,
+    @UploadedFiles(new FilesValidationPipe(['jpg', 'png']))
+    files: Array<Express.Multer.File>,
+    @Query('id') id: string,
   ): Promise<FileAnswerFileUploadDto[]> {
-    return this.fileAnswerService.createMany(files, id);
+    const idNumber: number = Number(id);
+    return this.fileAnswerService.createMany(files, idNumber);
   }
 }

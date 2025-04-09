@@ -4,6 +4,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
 } from '@nestjs/swagger';
 import { ResponseFileUploadDto } from './dto/response-file-upload.dto';
@@ -51,7 +52,7 @@ export function ApiManyFiles() {
   );
 }
 
-export function ApiOneFileWithID() {
+export function ApiOneFileWithDescription() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка одного файла' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto }),
@@ -65,8 +66,8 @@ export function ApiOneFileWithID() {
             type: 'string',
             format: 'binary',
           },
-          id: {
-            type: 'number',
+          description: {
+            type: 'string',
           },
         },
       },
@@ -74,7 +75,7 @@ export function ApiOneFileWithID() {
   );
 }
 
-export function ApiManyFilesWithID() {
+export function ApiManyFilesWithDescription() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка нескольких файлов' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto, isArray: true }),
@@ -91,9 +92,61 @@ export function ApiManyFilesWithID() {
               format: 'binary',
             },
           },
-          // id: {
-          //   type: 'number',
-          // },
+          descriptions: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    }),
+  );
+}
+
+export function ApiOneFileWithIdQuery() {
+  return applyDecorators(
+    ApiOperation({ summary: 'Загрузка одного файла' }),
+    ApiResponse({ status: 200, type: ResponseFileUploadDto }),
+    UseInterceptors(FileInterceptor('file')),
+    ApiConsumes('multipart/form-data'),
+    ApiQuery({
+      name: 'id',
+    }),
+    ApiBody({
+      schema: {
+        type: 'object',
+        properties: {
+          file: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    }),
+  );
+}
+
+export function ApiManyFilesWithIdQuery() {
+  return applyDecorators(
+    ApiOperation({ summary: 'Загрузка нескольких файлов' }),
+    ApiResponse({ status: 200, type: ResponseFileUploadDto, isArray: true }),
+    UseInterceptors(FilesInterceptor('files')),
+    ApiConsumes('multipart/form-data'),
+    ApiQuery({
+      name: 'id',
+    }),
+    ApiBody({
+      schema: {
+        type: 'object',
+        properties: {
+          files: {
+            type: 'array',
+            items: {
+              type: 'string',
+              format: 'binary',
+            },
+          },
         },
       },
     }),

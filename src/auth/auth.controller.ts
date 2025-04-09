@@ -18,7 +18,6 @@ export class AuthController {
   @ApiResponse({ status: 200, type: TokenInterface })
   @Post('/login')
   login(@Req() req: Request): Promise<TokenInterface> {
-    console.log(req);
     return this.authService.login(req.user as JwtPayloadInterface);
   }
 

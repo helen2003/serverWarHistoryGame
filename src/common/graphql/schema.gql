@@ -77,7 +77,11 @@ type SubtopicModel {
   id: Int!
   name: String!
   topicId: Int!
+<<<<<<< Updated upstream
   TheoryMaterial: [TheoryMaterialModel!]
+=======
+  TheoryMaterial(idTypeFile: Float!): [TheoryMaterialModel!]
+>>>>>>> Stashed changes
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -177,7 +181,13 @@ type Query {
   getRewardAOne(id: Int!): RewardModel!
   getTypeRewardAll: [TypeRewardModel!]!
   getTopicAll: [TopicModel!]!
+<<<<<<< Updated upstream
   getTopicOne(id: Float!): TopicModel!
+=======
+  getTopicOne(id: Float!): SubtopicModel!
+  getSubtopicAllByTopic(topicId: Int): [SubtopicModel!]!
+  getAllTheoryMaterial(subtopicId: Int, typeFileId: Int): TheoryMaterialModel!
+>>>>>>> Stashed changes
   getTypeFileAll: [TypeFileModel!]!
   getMiniGameAll: [TypeMiniGameModel!]!
   getTypeTaskAll: [TypeTaskModel!]!
@@ -205,6 +215,12 @@ type Mutation {
   deleteTypeReward(id: Int!): TypeRewardModel!
   createTopic(name: String!, disciplinaId: Int): TopicModel!
   deleteTopic(id: Int!): TopicModel!
+<<<<<<< Updated upstream
+=======
+  createSubtopic(name: String!, topicId: Int): SubtopicModel!
+  updateTheoryMaterialId(idFiles: [Int!]!, idSubtopic: Int!): Int!
+  deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
+>>>>>>> Stashed changes
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): TypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!

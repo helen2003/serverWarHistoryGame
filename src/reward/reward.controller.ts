@@ -6,9 +6,8 @@ import {
   UploadedFile,
   UsePipes,
 } from '@nestjs/common';
-import { ApiOneFileWithID } from '../common/decorators/api-file.decorator';
+import { ApiOneFileWithIdQuery } from '../common/decorators/api-file.decorator';
 import { FileValidationPipe } from '../common/pipes/file-validation.pipes';
-import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import { RewardService } from './reward.service';
 
 @Controller('reward')
@@ -16,7 +15,7 @@ export class RewardController {
   constructor(private readonly rewardService: RewardService) {}
 
   @Post('upload-file')
-  @ApiOneFileWithID()
+  @ApiOneFileWithIdQuery()
   uploadFile(
     @UploadedFile(new FileValidationPipe(['jpg', 'png']))
     file: Express.Multer.File,
