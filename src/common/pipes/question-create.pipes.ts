@@ -17,7 +17,12 @@ export class QuestionCreateValidationPipe implements PipeTransform<any> {
   ): Promise<any> {
     switch (data.typeMiniGameId) {
       case 3:
-        
+        if (data.Answer.length <= 1) {
+          throw new HttpException(
+            'Должно быть более 1 ответа.',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
         break;
       case 4:
         if (data.Answer.length != 4) {

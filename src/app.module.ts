@@ -22,6 +22,8 @@ import { FileAnswerModule } from './file-answer/file-answer.module';
 import { PracticMaterialModule } from './practic-material/practic-material.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
 import { SubtopicModule } from './subtopic/subtopic.module';
+import { TestingModule } from './testing/testing.module';
+import { AdminPanelModule } from './admin-panel/admin-panel.module';
 
 @Module({
   imports: [
@@ -53,6 +55,8 @@ import { SubtopicModule } from './subtopic/subtopic.module';
     FileAnswerModule,
     DisciplinaModule,
     SubtopicModule,
+    TestingModule,
+    AdminPanelModule,
   ],
 })
 export class AppModule {}

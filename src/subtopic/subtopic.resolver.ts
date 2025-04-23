@@ -46,7 +46,7 @@ export class SubtopicResolver {
   })
   getTheoryMaterial(
     @Parent() subtopic: SubtopicModel,
-    @Args('idTypeFile') idTypeFile: number | null,
+    @Args('idTypeFile', {nullable: true}) idTypeFile: number | null,
   ): Promise<TheoryMaterial[]> {
     const { id } = subtopic;
     return this.theoryMaterialSevise.gelAll({
