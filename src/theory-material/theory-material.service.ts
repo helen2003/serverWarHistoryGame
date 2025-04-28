@@ -10,7 +10,7 @@ export class TheoryMaterialService {
   constructor(private prisma: PrismaService) {}
 
   async create(
-    file: Express.Multer.File & { description: string },
+    file: Express.Multer.File & { description: string; id: number },
   ): Promise<ResponseFileUploadDto> {
     const fileName = writeFile(file);
     const typeFile = getTypeFile(file.mimetype);
@@ -19,6 +19,7 @@ export class TheoryMaterialService {
         url: fileName,
         typeFileId: typeFile,
         description: file.description,
+        subtopicId: file.id,
       },
       select: {
         id: true,

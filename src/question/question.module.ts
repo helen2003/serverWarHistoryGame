@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { QuestionResolver } from './question.resolver';
 import { PrismaService } from '../common/prisma/prisma.service';
@@ -13,11 +13,12 @@ import { PracticMaterialModule } from '../practic-material/practic-material.modu
   providers: [QuestionResolver, QuestionService, PrismaService],
   imports: [
     TypeTaskModule,
-    TopicModule,
+    forwardRef(() => TopicModule),
     TypeMiniGameModule,
     AnswerModule,
     ResponceTemplateModule,
     PracticMaterialModule,
   ],
+  exports: [QuestionService],
 })
 export class QuestionModule {}

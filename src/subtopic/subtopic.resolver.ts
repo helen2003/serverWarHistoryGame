@@ -37,7 +37,7 @@ export class SubtopicResolver {
   }
 
   @Query(() => SubtopicModel)
-  getTopicOne(@Args('id') id: number): Promise<Subtopic> {
+  getSubtopicOne(@Args('id') id: number): Promise<Subtopic> {
     return this.subtopicService.findOne(id);
   }
 

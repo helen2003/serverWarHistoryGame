@@ -7,10 +7,11 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class FileExtenderDescription implements NestInterceptor {
+export class FileExtenderDescriptionId implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.switchToHttp().getRequest();
     req.file['description'] = req.body.description;
+    req.file['id'] = Number(req.body.id);
     return next.handle();
   }
 }

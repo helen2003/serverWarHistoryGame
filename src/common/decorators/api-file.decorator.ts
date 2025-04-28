@@ -52,7 +52,7 @@ export function ApiManyFiles() {
   );
 }
 
-export function ApiOneFileWithDescription() {
+export function ApiOneFileWithDescriptionId() {
   return applyDecorators(
     ApiOperation({ summary: 'Загрузка одного файла' }),
     ApiResponse({ status: 200, type: ResponseFileUploadDto }),
@@ -67,6 +67,9 @@ export function ApiOneFileWithDescription() {
             format: 'binary',
           },
           description: {
+            type: 'string',
+          },
+          id: {
             type: 'string',
           },
         },

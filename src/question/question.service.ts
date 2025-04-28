@@ -27,6 +27,14 @@ export class QuestionService {
     });
   }
 
+  async findAllByTopic(id: number): Promise<Question[]> {
+    return this.prisma.question.findMany({
+      where: {
+        topicId: id,
+      },
+    });
+  }
+
   async findAll(getAllArgs: GetQuestionAllArgs) {
     const totalCount = await this.prisma.question.count({});
     if (getAllArgs.random) {

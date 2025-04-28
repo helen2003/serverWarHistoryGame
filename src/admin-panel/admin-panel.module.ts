@@ -1,8 +1,16 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
+import * as path from 'path';
 
-export const dynamicImport = async (packageName: string) =>
+const dynamicImport = async (packageName: string) =>
   new Function(`return import('${packageName}')`)();
+
+// const uploadModule = await dynamicImport('@adminjs/upload');
+// const uploadFeature = uploadModule.default;
+
+// const adminjs = await dynamicImport('adminjs');
+// const { ComponentLoader } = adminjs;
+// const componentLoader = new ComponentLoader();
 
 const DEFAULT_ADMIN = {
   email: 'admin@example.com',
@@ -34,11 +42,17 @@ dynamicImport('adminjs').then(({ AdminJS }) =>
                 rootPath: '/admin',
                 resources: [
                   {
-                    resource: { model: getModelByName('Rank'), client: prisma },
+                    resource: {
+                      model: getModelByName('Rank'),
+                      client: prisma,
+                    },
                     options: {},
                   },
                   {
-                    resource: { model: getModelByName('User'), client: prisma },
+                    resource: {
+                      model: getModelByName('User'),
+                      client: prisma,
+                    },
                     options: {},
                   },
                   {
@@ -131,6 +145,27 @@ dynamicImport('adminjs').then(({ AdminJS }) =>
                       client: prisma,
                     },
                     options: {},
+                    // features: [
+                    //   uploadFeature({
+                    //     provider: {
+                    //       local: {
+                    //         path: path.resolve(__dirname, '../..', 'static'),
+                    //         baseUrl: '/static',
+                    //       },
+                    //     },
+                    //     properties: {
+                    //       url: {
+                    //         label: 'Изображение',
+                    //         isSortable: true,
+                    //         isVisible: {
+                    //           list: true,
+                    //           show: true,
+                    //           edit: true,
+                    //         },
+                    //       },
+                    //     },
+                    //   }),
+                    // ],
                   },
                   {
                     resource: {

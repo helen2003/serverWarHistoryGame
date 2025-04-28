@@ -9,16 +9,19 @@ import {
 } from '@nestjs/graphql';
 import { TopicService } from './topic.service';
 import { TopicModel } from './model/topic.model';
-import { Subtopic, TheoryMaterial, Topic } from '@prisma/client';
+import { Question, Subtopic, TheoryMaterial, Topic } from '@prisma/client';
 import { UpdateTopicInput } from './dto/input/update-model.input';
 import { SubtopicModel } from '../subtopic/model/subtopic.model';
 import { SubtopicService } from '../subtopic/subtopic.service';
+import { QuestionService } from 'src/question/question.service';
+import { QuestionModel } from 'src/question/model/question.model';
 
 @Resolver(() => TopicModel)
 export class TopicResolver {
   constructor(
     private readonly topicService: TopicService,
     private subtopicSevise: SubtopicService,
+    private questionService: QuestionService,
   ) {}
 
   @Query(() => [TopicModel])
@@ -37,6 +40,14 @@ export class TopicResolver {
   getSubtopic(@Parent() topic: TopicModel): Promise<Subtopic[]> {
     const { id } = topic;
     return this.subtopicSevise.findAllByTopic(id);
+  }
+
+  @ResolveField('Question', () => [QuestionModel], {
+    nullable: true,
+  })
+  getQuestions(@Parent() topic: TopicModel) {
+    const { id } = topic;
+    return this.questionService.findAllByTopic(id);
   }
 
   @Mutation(() => TopicModel)

@@ -82,34 +82,6 @@ type SubtopicModel {
   updated_at: DateTime!
 }
 
-type Count {
-  Question: Int!
-}
-
-type TopicModel {
-  id: Int!
-  name: String!
-  disciplinaId: Int!
-  Subtopic: [SubtopicModel!]
-  created_at: DateTime!
-  updated_at: DateTime!
-  _count: Count!
-}
-
-type TypeMiniGameModel {
-  id: Int!
-  name: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type TypeTaskModel {
-  id: Int!
-  name: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
 type FileAnswerModel {
   id: Int!
   url: String!
@@ -146,6 +118,20 @@ type ResponceTemplateModel {
   updated_at: DateTime!
 }
 
+type TypeMiniGameModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TypeTaskModel {
+  id: Int!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type QuestionModel {
   id: Int!
   text: String!
@@ -163,6 +149,21 @@ type QuestionModel {
   updated_at: DateTime!
 }
 
+type Count {
+  Question: Int!
+}
+
+type TopicModel {
+  id: Int!
+  name: String!
+  disciplinaId: Int!
+  Subtopic: [SubtopicModel!]
+  Question: [QuestionModel!]
+  created_at: DateTime!
+  updated_at: DateTime!
+  _count: Count!
+}
+
 type QuestionAllOutput {
   totalCount: Int!
   Questions: [QuestionModel!]!
@@ -177,14 +178,15 @@ type Query {
   getRewardAOne(id: Int!): RewardModel!
   getTypeRewardAll: [TypeRewardModel!]!
   getTopicAll: [TopicModel!]!
-  getTopicOne(id: Float!): SubtopicModel!
+  getTopicOne(id: Float!): TopicModel!
   getSubtopicAllByTopic(topicId: Int): [SubtopicModel!]!
+  getSubtopicOne(id: Float!): SubtopicModel!
   getAllTheoryMaterial(subtopicId: Int, typeFileId: Int): TheoryMaterialModel!
   getTypeFileAll: [TypeFileModel!]!
-  getMiniGameAll: [TypeMiniGameModel!]!
-  getTypeTaskAll: [TypeTaskModel!]!
   getQuestionAll(take: Int, random: Boolean, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): QuestionAllOutput!
   getQuestionAOne(id: Int!): QuestionModel!
+  getTypeTaskAll: [TypeTaskModel!]!
+  getMiniGameAll: [TypeMiniGameModel!]!
   getAllPracticMaterial(questionId: Int, typeFileId: Int): PracticMaterialModel!
 }
 
@@ -210,12 +212,12 @@ type Mutation {
   createSubtopic(name: String!, topicId: Int): SubtopicModel!
   updateTheoryMaterialId(idFiles: [Int!]!, idSubtopic: Int!): Int!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
-  createTypeTask(name: String!): TypeTaskModel!
-  updateTypeTask(name: String!, id: Int!): TypeTaskModel!
-  deleteTypeTask(id: Int!): TypeTaskModel!
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
   updateQuestion(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
   deleteQuestion(id: Int!, questionId: Int!): ResponceTemplateModel!
+  createTypeTask(name: String!): TypeTaskModel!
+  updateTypeTask(name: String!, id: Int!): TypeTaskModel!
+  deleteTypeTask(id: Int!): TypeTaskModel!
   deleteFileAnswer(id: Int!): FileAnswerModel!
   updatePracticMaterialId(idFiles: [Int!]!, idQuestion: Int!): Int!
   deletePracticMaterial(id: Int!): PracticMaterialModel!

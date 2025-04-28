@@ -23,6 +23,7 @@
     "@adminjs/express": "^6.1.1",
     "@adminjs/nestjs": "^6.1.0",
     "@adminjs/prisma": "^5.0.3",
+    "@adminjs/upload": "^4.0.2",
     "@nestjs/apollo": "^12.2.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",
