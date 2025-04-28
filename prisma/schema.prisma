@@ -81,9 +81,10 @@ model Subtopic {
 }
 
 model TheoryMaterial {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   url         String
   description String
+  usage       Boolean
   subtopicId  Int?
   typeFileId  Int?
 

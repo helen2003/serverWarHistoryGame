@@ -13,6 +13,9 @@ export class TheoryMaterialModel implements TheoryMaterial {
   @Field(() => String)
   description: string;
 
+  @Field(() => Boolean)
+  usage: boolean
+
   @Field(() => Int)
   subtopicId: number;
 

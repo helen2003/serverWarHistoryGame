@@ -66,6 +66,7 @@ type TheoryMaterialModel {
   id: Int!
   url: String!
   description: String!
+  usage: Boolean!
   subtopicId: Int!
   typeFileId: Int!
   TypeFile: TypeFileModel!

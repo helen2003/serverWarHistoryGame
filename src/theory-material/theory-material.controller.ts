@@ -9,7 +9,7 @@ import {
 import { TheoryMaterialService } from './theory-material.service';
 import {
   ApiManyFilesWithDescription,
-  ApiOneFileWithDescriptionId,
+  ApiOneFileTheoryMaretial,
 } from '../common/decorators/api-file.decorator';
 import { ResponseFileUploadDto } from './dto/output/response-file-upload.dto';
 import {
@@ -17,7 +17,7 @@ import {
   FileValidationPipe,
 } from '../common/pipes/file-validation.pipes';
 import {
-  FileExtenderDescriptionId,
+  FileExtenderTheoryMaterial,
   FilesExtenderDescription,
 } from 'src/common/interceptors/fileExtenderDescription';
 
@@ -26,12 +26,12 @@ export class TheoryMaterialController {
   constructor(private readonly theoryMaterialService: TheoryMaterialService) {}
 
   @Post('upload-file')
-  @UseInterceptors(FileExtenderDescriptionId)
-  @ApiOneFileWithDescriptionId()
+  @UseInterceptors(FileExtenderTheoryMaterial)
+  @ApiOneFileTheoryMaretial()
   @UsePipes(new FileValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
   uploadFile(
     @UploadedFile()
-    file: Express.Multer.File & { description: string; id: number },
+    file: Express.Multer.File & { description: string; usage: boolean, id: number },
   ): Promise<ResponseFileUploadDto> {
     return this.theoryMaterialService.create(file);
   }
