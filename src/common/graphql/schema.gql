@@ -234,8 +234,8 @@ input CreateUpdateAchievmentInput {
 }
 
 input UpdateTopicInput {
-  name: String!
-  disciplinaId: Int!
+  name: String
+  disciplinaId: Int
   id: Int!
 }
 

@@ -7,10 +7,10 @@ export class UpdateTopicInput extends PickType(TopicModel, [
   'name',
   'disciplinaId',
 ]) {
-  @Field(() => String)
+  @Field(() => String, {nullable: true})
   name: string;
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   disciplinaId: number;
 
   @Field(() => Int)
