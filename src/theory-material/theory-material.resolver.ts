@@ -21,13 +21,13 @@ export class TheoryMaterialResolver {
     private typeFileService: TypeFileService,
   ) {}
 
-  @Mutation(() => Int)
-  updateTheoryMaterialId(
-    @Args('idFiles', { type: () => [Int] }) idFiles: Array<number>,
-    @Args('idSubtopic', { type: () => Int }) idSubtopic: number,
-  ): Promise<number> {
-    return this.theoryMaterialService.updateIdFile(idFiles, idSubtopic);
-  }
+  // @Mutation(() => Int)
+  // updateTheoryMaterialId(
+  //   @Args('idFiles', { type: () => [Int] }) idFiles: Array<number>,
+  //   @Args('idSubtopic', { type: () => Int }) idSubtopic: number,
+  // ): Promise<number> {
+  //   return this.theoryMaterialService.updateIdFile(idFiles, idSubtopic);
+  // }
 
   @Query(() => TheoryMaterialModel)
   getAllTheoryMaterial(

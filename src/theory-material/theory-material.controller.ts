@@ -36,14 +36,14 @@ export class TheoryMaterialController {
     return this.theoryMaterialService.create(file);
   }
 
-  @Post('upload-files')
-  @UseInterceptors(FilesExtenderDescription)
-  @ApiManyFilesWithDescription()
-  @UsePipes(new FilesValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
-  uploadFiles(
-    @UploadedFiles()
-    files: Array<Express.Multer.File & { description: string }>,
-  ): Promise<ResponseFileUploadDto[]> {
-    return this.theoryMaterialService.createMany(files);
-  }
+  // @Post('upload-files')
+  // @UseInterceptors(FilesExtenderDescription)
+  // @ApiManyFilesWithDescription()
+  // @UsePipes(new FilesValidationPipe(['mp3', 'mp4', 'jpg', 'epub', 'png']))
+  // uploadFiles(
+  //   @UploadedFiles()
+  //   files: Array<Express.Multer.File & { description: string }>,
+  // ): Promise<ResponseFileUploadDto[]> {
+  //   return this.theoryMaterialService.createMany(files);
+  // }
 }

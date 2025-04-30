@@ -11,7 +11,7 @@ export class ResponceTemplateResolver {
   ) {}
 
   @Mutation(() => ResponceTemplateModel)
-  updateQuestion(
+  updateResponceTemplate(
     @Args('updateResponceTemplateData')
     updateResponceTemplateData: UpdateResponceTemplateInput,
   ): Promise<ResponceTemplate> {
@@ -19,7 +19,7 @@ export class ResponceTemplateResolver {
   }
 
   @Mutation(() => ResponceTemplateModel)
-  deleteQuestion(
+  deleteResponceTemplate(
     @Args('id', { type: () => Int }) id: number,
     @Args('questionId', { type: () => Int }) questionId: number,
   ): Promise<ResponceTemplate> {
