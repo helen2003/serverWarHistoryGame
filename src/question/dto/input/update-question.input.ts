@@ -8,15 +8,15 @@ export class UpdateQuestionInput extends PickType(QuestionModel, [
   'scaleImportantId',
   'typeTaskId',
 ]) {
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   text: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   scaleImportantId: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   topicId: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   typeTaskId: number;
 }
