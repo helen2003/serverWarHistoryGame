@@ -189,6 +189,10 @@ type UpdateTopicModel {
   count: Int!
 }
 
+type UpdateSubtopicModel {
+  count: Int!
+}
+
 type QuestionAllOutput {
   totalCount: Int!
   Questions: [QuestionModel!]!
@@ -245,9 +249,10 @@ type Mutation {
   updateTypeReward(name: String!, id: Int!): UpdateTypeRewardModel!
   deleteTypeReward(id: Int!): TypeRewardModel!
   createTopic(name: String!, disciplinaId: Int): TopicModel!
-  updateTopic(updateTopicData: UpdateTopicInput!): UpdateTopicModel!
+  updateTopic(updateSubtopicData: UpdateSubtopicInput!): UpdateSubtopicModel!
   deleteTopic(id: Int!): TopicModel!
   createSubtopic(name: String!, topicId: Int): SubtopicModel!
+  deleteSubtopic(id: Int!): SubtopicModel!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
   updateQuestion(id: Int!, updateQuestionData: UpdateQuestionInput!): UpdateQuestionModel!
@@ -277,9 +282,9 @@ input CreateUpdateRewardInput {
   typeRewardId: Int!
 }
 
-input UpdateTopicInput {
+input UpdateSubtopicInput {
   name: String
-  disciplinaId: Int
+  topicId: Int
   id: Int!
 }
 

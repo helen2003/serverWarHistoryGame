@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Subtopic } from '@prisma/client';
 import { PrismaService } from 'src/common/prisma/prisma.service';
+import { UpdateSubtopicInput } from './dto/input/update-model.input';
 
 @Injectable()
 export class SubtopicService {
@@ -23,4 +24,23 @@ export class SubtopicService {
       where: { topicId: topicId },
     });
   }
+
+    async update(updateSubtopicData: UpdateSubtopicInput): Promise<Subtopic> {
+      return this.prisma.subtopic.update({
+        where: {
+          id: updateSubtopicData.id,
+        },
+        data: {
+          ...updateSubtopicData,
+        },
+      });
+    }
+  
+    async delete(id: number): Promise<Subtopic> {
+      return this.prisma.subtopic.delete({
+        where: {
+          id: id,
+        },
+      });
+    }
 }

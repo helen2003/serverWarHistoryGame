@@ -12,6 +12,8 @@ import { TheoryMaterialService } from '../theory-material/theory-material.servic
 import { TheoryMaterialModel } from '../theory-material/model/theory-material.model';
 import { SubtopicModel } from './model/subtopic.model';
 import { Subtopic, TheoryMaterial } from '@prisma/client';
+import { UpdateSubtopicModel } from './model/update.model';
+import { UpdateSubtopicInput } from './dto/input/update-model.input';
 
 @Resolver(() => SubtopicModel)
 export class SubtopicResolver {
@@ -56,4 +58,16 @@ export class SubtopicResolver {
       typeFileId: idTypeFile,
     });
   }
+
+    @Mutation(() => UpdateSubtopicModel)
+    updateTopic(
+      @Args('updateSubtopicData') updateSubtopicData: UpdateSubtopicInput,
+    ): Promise<Subtopic> {
+      return this.subtopicService.update(updateSubtopicData);
+    }
+  
+    @Mutation(() => SubtopicModel)
+    deleteSubtopic(@Args('id', { type: () => Int }) id: number): Promise<Subtopic> {
+      return this.subtopicService.delete(id);
+    }
 }
