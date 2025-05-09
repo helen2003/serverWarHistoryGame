@@ -36,6 +36,7 @@ import { PracticMaterialModel } from '../practic-material/model/practic-material
 import { QuestionAllOutput } from './dto/ouput/findAll-question.output';
 import { UsePipes } from '@nestjs/common';
 import { QuestionCreateValidationPipe } from '../common/pipes/question-create.pipes';
+import { UpdateQuestionModel } from './model/update.model';
 
 @Resolver(() => QuestionModel)
 export class QuestionResolver {
@@ -116,7 +117,7 @@ export class QuestionResolver {
     return this.questionService.create(createQuestionInput);
   }
 
-  @Mutation(() => QuestionModel)
+  @Mutation(() => UpdateQuestionModel)
   updateQuestion(
     @Args('id', { type: () => Int }) id: number,
     @Args('updateQuestionData') updateQuestionInput: UpdateQuestionInput,

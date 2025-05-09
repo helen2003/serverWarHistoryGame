@@ -13,6 +13,7 @@ import { Reward, TypeReward } from '@prisma/client';
 import { CreateUpdateRewardInput } from './dto/input/create-reward.input';
 import { TypeRewardService } from '../type-reward/type-reward.service';
 import { TypeRewardModel } from '../type-reward/model/type-reward.model';
+import { UpdateRewardModel } from './model/update.model';
 
 @Resolver(() => RewardModel)
 export class RewardResolver {
@@ -49,7 +50,7 @@ export class RewardResolver {
     return this.rewardService.create(createRewardInput);
   }
 
-  @Mutation(() => RewardModel)
+  @Mutation(() => UpdateRewardModel)
   updateReward(
     @Args('id', { type: () => Int }) id: number,
     @Args('updateRewardData') updateRewardInput: CreateUpdateRewardInput,

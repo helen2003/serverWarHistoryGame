@@ -3,6 +3,7 @@ import { ResponceTemplateService } from './responce-template.service';
 import { ResponceTemplateModel } from './model/responce-template.model';
 import { ResponceTemplate } from '@prisma/client';
 import { UpdateResponceTemplateInput } from './dto/update-response-template.input';
+import { UpdateResponceTemplateModel } from './model/update.model';
 
 @Resolver()
 export class ResponceTemplateResolver {
@@ -10,7 +11,7 @@ export class ResponceTemplateResolver {
     private readonly responceTemplateService: ResponceTemplateService,
   ) {}
 
-  @Mutation(() => ResponceTemplateModel)
+  @Mutation(() => UpdateResponceTemplateModel)
   updateResponceTemplate(
     @Args('updateResponceTemplateData')
     updateResponceTemplateData: UpdateResponceTemplateInput,

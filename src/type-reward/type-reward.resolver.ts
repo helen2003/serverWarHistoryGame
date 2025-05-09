@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TypeRewardService } from './type-reward.service';
 import { TypeRewardModel } from './model/type-reward.model';
 import { TypeReward } from '@prisma/client';
+import { UpdateTypeRewardModel } from './model/update.model';
 
 @Resolver()
 export class TypeRewardResolver {
@@ -17,7 +18,7 @@ export class TypeRewardResolver {
     return this.typeRewardService.create(name);
   }
 
-  @Mutation(() => TypeRewardModel)
+  @Mutation(() => UpdateTypeRewardModel)
   updateTypeReward(
     @Args('name') name: string,
     @Args('id', { type: () => Int }) id: number,

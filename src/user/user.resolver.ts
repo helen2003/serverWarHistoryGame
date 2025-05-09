@@ -19,6 +19,7 @@ import { RankService } from '../rank/rank.service';
 import { RankModel } from '../rank/model/rank.model';
 import { AchievementModel } from '../achievement/model/achievement.model';
 import { AchievementService } from '../achievement/achievement.service';
+import { UpdateUserModel } from './model/update.model';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -28,7 +29,7 @@ export class UserResolver {
     private achievementService: AchievementService,
   ) {}
 
-  @Mutation(() => UserModel)
+  @Mutation(() => UpdateUserModel)
   @UseGuards(JwtAuthGuard)
   updateUser(
     @CurrentUser() user: ValidateUser,
@@ -37,7 +38,7 @@ export class UserResolver {
     return this.userService.update(user, updateUserInput);
   }
 
-  @Mutation(() => UserModel)
+  @Mutation(() => UpdateUserModel)
   @UseGuards(JwtAuthGuard)
   updatePassword(
     @CurrentUser() user: ValidateUser,
@@ -46,7 +47,7 @@ export class UserResolver {
     return this.userService.updatePassword(user, password);
   }
 
-  @Mutation(() => UserModel)
+  @Mutation(() => UpdateUserModel)
   @UseGuards(JwtAuthGuard)
   updateRole(
     @Args('userId', { type: () => Int }) userId: number,

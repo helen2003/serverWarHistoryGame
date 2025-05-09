@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { RankService } from './rank.service';
 import { RankModel } from './model/rank.model';
 import { Rank } from '@prisma/client';
+import { UpdateRankModel } from './model/update.model';
 
 @Resolver(() => RankModel)
 export class RankResolver {
@@ -17,7 +18,7 @@ export class RankResolver {
     return this.rankService.create(name);
   }
 
-  @Mutation(() => RankModel)
+  @Mutation(() => UpdateRankModel)
   updateRank(
     @Args('name') name: string,
     @Args('id', { type: () => Int }) id: number,

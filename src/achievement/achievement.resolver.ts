@@ -14,6 +14,7 @@ import { GetAchievmentArgs } from './dto/args/get-all-achievment.args';
 import { RewardModel } from '../reward/model/reward.model';
 import { RewardService } from '../reward/reward.service';
 import { CreateUpdateAchievmentInput } from './dto/input/create-update-achievment.input';
+import { UpdateAchievmentModel } from './model/update.model';
 
 @Resolver(() => AchievementModel)
 export class AchievementResolver {
@@ -45,8 +46,8 @@ export class AchievementResolver {
     return this.achievementService.create(createAchievmentData);
   }
 
-  @Mutation(() => AchievementModel)
-  updateTopic(
+  @Mutation(() => UpdateAchievmentModel)
+  updateAchievment(
     @Args('id', { type: () => Int }) id: number,
     @Args('updateAchievmentData')
     updateAchievmentData: CreateUpdateAchievmentInput,

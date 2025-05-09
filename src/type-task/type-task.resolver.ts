@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TypeTaskService } from './type-task.service';
 import { TypeTask } from '@prisma/client';
 import { TypeTaskModel } from './model/type-task.model';
+import { UpdateTypeTaskModel } from './model/update.model';
 
 @Resolver()
 export class TypeTaskResolver {
@@ -17,7 +18,7 @@ export class TypeTaskResolver {
     return this.typeTaskService.create(name);
   }
 
-  @Mutation(() => TypeTaskModel)
+  @Mutation(() => UpdateTypeTaskModel)
   updateTypeTask(
     @Args('name') name: string,
     @Args('id', { type: () => Int }) id: number,

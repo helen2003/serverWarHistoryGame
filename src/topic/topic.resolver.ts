@@ -15,6 +15,7 @@ import { SubtopicModel } from '../subtopic/model/subtopic.model';
 import { SubtopicService } from '../subtopic/subtopic.service';
 import { QuestionService } from 'src/question/question.service';
 import { QuestionModel } from 'src/question/model/question.model';
+import { UpdateTopicModel } from './model/update.model';
 
 @Resolver(() => TopicModel)
 export class TopicResolver {
@@ -59,7 +60,7 @@ export class TopicResolver {
     return this.topicService.create(name, disciplinaId);
   }
 
-  @Mutation(() => TopicModel)
+  @Mutation(() => UpdateTopicModel)
   updateTopic(
     @Args('updateTopicData') updateTopicData: UpdateTopicInput,
   ): Promise<Topic> {

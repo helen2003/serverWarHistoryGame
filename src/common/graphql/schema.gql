@@ -55,6 +55,26 @@ type UserModel {
   updated_at: DateTime!
 }
 
+type UpdateUserModel {
+  count: Int!
+}
+
+type UpdateRankModel {
+  count: Int!
+}
+
+type UpdateAchievmentModel {
+  count: Int!
+}
+
+type UpdateRewardModel {
+  count: Int!
+}
+
+type UpdateTypeRewardModel {
+  count: Int!
+}
+
 type TypeFileModel {
   id: Int!
   name: String!
@@ -165,9 +185,25 @@ type TopicModel {
   _count: Count!
 }
 
+type UpdateTopicModel {
+  count: Int!
+}
+
 type QuestionAllOutput {
   totalCount: Int!
   Questions: [QuestionModel!]!
+}
+
+type UpdateQuestionModel {
+  count: Int!
+}
+
+type UpdateTypeTaskModel {
+  count: Int!
+}
+
+type UpdateResponceTemplateModel {
+  count: Int!
 }
 
 type Query {
@@ -192,34 +228,35 @@ type Query {
 }
 
 type Mutation {
-  updateUser(updateUserData: UpdateUserInput!): UserModel!
-  updatePassword(password: String!): UserModel!
-  updateRole(userId: Int!, role: String!): UserModel!
+  updateUser(updateUserData: UpdateUserInput!): UpdateUserModel!
+  updatePassword(password: String!): UpdateUserModel!
+  updateRole(userId: Int!, role: String!): UpdateUserModel!
   deleteAccount: UserModel!
   createRank(name: String!): RankModel!
-  updateRank(name: String!, id: Int!): RankModel!
+  updateRank(name: String!, id: Int!): UpdateRankModel!
   deleteRank(id: Int!): RankModel!
   createAchievment(createAchievmentData: CreateUpdateAchievmentInput!): AchievementModel!
-  updateTopic(updateTopicData: UpdateTopicInput!): TopicModel!
+  updateAchievment(id: Int!, updateAchievmentData: CreateUpdateAchievmentInput!): UpdateAchievmentModel!
   deleteAchievment(id: Int!): AchievementModel!
   createReward(createRewardData: CreateUpdateRewardInput!): RewardModel!
-  updateReward(id: Int!, updateRewardData: CreateUpdateRewardInput!): RewardModel!
+  updateReward(id: Int!, updateRewardData: CreateUpdateRewardInput!): UpdateRewardModel!
   deleteReward(id: Int!): RewardModel!
   createTypeReward(name: String!): TypeRewardModel!
-  updateTypeReward(name: String!, id: Int!): TypeRewardModel!
+  updateTypeReward(name: String!, id: Int!): UpdateTypeRewardModel!
   deleteTypeReward(id: Int!): TypeRewardModel!
   createTopic(name: String!, disciplinaId: Int): TopicModel!
+  updateTopic(updateTopicData: UpdateTopicInput!): UpdateTopicModel!
   deleteTopic(id: Int!): TopicModel!
   createSubtopic(name: String!, topicId: Int): SubtopicModel!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
-  updateQuestion(id: Int!, updateQuestionData: UpdateQuestionInput!): QuestionModel!
+  updateQuestion(id: Int!, updateQuestionData: UpdateQuestionInput!): UpdateQuestionModel!
   deleteQuestion(id: Int!): QuestionModel!
   createTypeTask(name: String!): TypeTaskModel!
-  updateTypeTask(name: String!, id: Int!): TypeTaskModel!
+  updateTypeTask(name: String!, id: Int!): UpdateTypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
   deleteFileAnswer(id: Int!): FileAnswerModel!
-  updateResponceTemplate(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
+  updateResponceTemplate(updateResponceTemplateData: UpdateResponceTemplateInput!): UpdateResponceTemplateModel!
   deleteResponceTemplate(id: Int!, questionId: Int!): ResponceTemplateModel!
   updatePracticMaterialId(idFiles: [Int!]!, idQuestion: Int!): Int!
   deletePracticMaterial(id: Int!): PracticMaterialModel!
@@ -234,16 +271,16 @@ input CreateUpdateAchievmentInput {
   userId: Int!
 }
 
-input UpdateTopicInput {
-  name: String
-  disciplinaId: Int
-  id: Int!
-}
-
 input CreateUpdateRewardInput {
   name: String!
   description: String!
   typeRewardId: Int!
+}
+
+input UpdateTopicInput {
+  name: String
+  disciplinaId: Int
+  id: Int!
 }
 
 input CreateQuestionInput {
