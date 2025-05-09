@@ -37,7 +37,9 @@ export class SubtopicResolver {
   }
 
   @Query(() => SubtopicModel)
-  getSubtopicOne(@Args('id') id: number): Promise<Subtopic> {
+  getSubtopicOne(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<Subtopic> {
     return this.subtopicService.findOne(id);
   }
 
@@ -46,7 +48,7 @@ export class SubtopicResolver {
   })
   getTheoryMaterial(
     @Parent() subtopic: SubtopicModel,
-    @Args('idTypeFile', {nullable: true}) idTypeFile: number | null,
+    @Args('idTypeFile', { nullable: true }) idTypeFile: number | null,
   ): Promise<TheoryMaterial[]> {
     const { id } = subtopic;
     return this.theoryMaterialSevise.gelAll({

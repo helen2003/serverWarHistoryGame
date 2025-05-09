@@ -71,7 +71,9 @@ export class QuestionResolver {
     return this.responseTemplateService.findOne(id);
   }
 
-  @ResolveField('PracticMaterial', () => [PracticMaterialModel])
+  @ResolveField('PracticMaterial', () => [PracticMaterialModel], {
+    nullable: true,
+  })
   getPracticMaterial(
     @Parent() question: QuestionModel,
   ): Promise<PracticMaterial[]> {
@@ -82,10 +84,10 @@ export class QuestionResolver {
     });
   }
 
-  @ResolveField('TypeTask', () => TypeTaskModel)
+  @ResolveField('TypeTask', () => TypeTaskModel, { nullable: true })
   getTypeTask(@Parent() question: QuestionModel): Promise<TypeTask> {
     const { typeTaskId } = question;
-    return this.typeTaskService.findOne(typeTaskId);
+    if (typeTaskId) return this.typeTaskService.findOne(typeTaskId);
   }
 
   @ResolveField('Topic', () => TopicModel)
@@ -100,7 +102,7 @@ export class QuestionResolver {
     return this.answerService.findAllByQuestion(id);
   }
 
-  @ResolveField('TypeMiniGame', () => TypeMiniGameModel)
+  @ResolveField('TypeMiniGame', () => TypeMiniGameModel, { nullable: true })
   getTypeMiniGame(@Parent() question: QuestionModel): Promise<TypeMiniGame> {
     const { typeMiniGameId } = question;
     return this.typeMiniGameService.findOne(typeMiniGameId);

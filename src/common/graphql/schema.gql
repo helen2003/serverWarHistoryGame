@@ -140,12 +140,12 @@ type QuestionModel {
   Topic: TopicModel!
   Answer: [AnswerModel!]!
   ResponceTemplate: ResponceTemplateModel
-  PracticMaterial: [PracticMaterialModel!]!
-  typeTaskId: Int!
-  TypeTask: TypeTaskModel!
-  typeMiniGameId: Int!
-  TypeMiniGame: TypeMiniGameModel!
-  scaleImportantId: Int!
+  PracticMaterial: [PracticMaterialModel!]
+  typeTaskId: Int
+  TypeTask: TypeTaskModel
+  typeMiniGameId: Int
+  TypeMiniGame: TypeMiniGameModel
+  scaleImportantId: Int
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -181,7 +181,7 @@ type Query {
   getTopicAll: [TopicModel!]!
   getTopicOne(id: Float!): TopicModel!
   getSubtopicAllByTopic(topicId: Int): [SubtopicModel!]!
-  getSubtopicOne(id: Float!): SubtopicModel!
+  getSubtopicOne(id: Int!): SubtopicModel!
   getAllTheoryMaterial(subtopicId: Int, typeFileId: Int): TheoryMaterialModel!
   getTypeFileAll: [TypeFileModel!]!
   getQuestionAll(take: Int, random: Boolean, scaleImportantId: Int, topicId: Int, typeMiniGameId: Int, typeTaskId: Int): QuestionAllOutput!

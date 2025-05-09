@@ -10,9 +10,9 @@ export class TypeTaskService {
     return this.prisma.typeTask.create({ data: { name: name } });
   }
 
-  async findOne(typeRewardId: number): Promise<TypeTask> {
-    return this.prisma.typeTask.findUnique({
-      where: { id: typeRewardId },
+  async findOne(typeId: number): Promise<TypeTask> {
+    return this.prisma.typeTask.findFirst({
+      where: { id: typeId },
     });
   }
 

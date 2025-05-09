@@ -30,19 +30,19 @@ export class QuestionModel implements Question {
   @Field(() => [PracticMaterialModel])
   PracticMaterial: PracticMaterialModel[];
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   typeTaskId: number;
 
   @Field(() => TypeTaskModel)
   TypeTask: TypeTaskModel;
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   typeMiniGameId: number;
 
   @Field(() => TypeMiniGameModel)
   TypeMiniGame: TypeMiniGameModel;
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   scaleImportantId: number;
 
   @Field(() => Date)
