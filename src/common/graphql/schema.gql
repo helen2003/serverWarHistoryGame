@@ -211,15 +211,16 @@ type Mutation {
   createTopic(name: String!, disciplinaId: Int): TopicModel!
   deleteTopic(id: Int!): TopicModel!
   createSubtopic(name: String!, topicId: Int): SubtopicModel!
-  updateTheoryMaterialId(idFiles: [Int!]!, idSubtopic: Int!): Int!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
-  updateQuestion(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
-  deleteQuestion(id: Int!, questionId: Int!): ResponceTemplateModel!
+  updateQuestion(id: Int!, updateQuestionData: UpdateQuestionInput!): QuestionModel!
+  deleteQuestion(id: Int!): QuestionModel!
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): TypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
   deleteFileAnswer(id: Int!): FileAnswerModel!
+  updateResponceTemplate(updateResponceTemplateData: UpdateResponceTemplateInput!): ResponceTemplateModel!
+  deleteResponceTemplate(id: Int!, questionId: Int!): ResponceTemplateModel!
   updatePracticMaterialId(idFiles: [Int!]!, idQuestion: Int!): Int!
   deletePracticMaterial(id: Int!): PracticMaterialModel!
 }
@@ -252,16 +253,23 @@ input CreateQuestionInput {
   typeMiniGameId: Int!
   typeTaskId: Int!
   Answer: [CreateAnswerInput!]!
-  ResponceTemplate: [CreateResponceTemplateInput!]!
+  ResponceTemplate: [CreateResponceTemplateInput]
 }
 
 input CreateAnswerInput {
   text: String!
-  correct: String!
+  correct: String
 }
 
 input CreateResponceTemplateInput {
   text: String!
+}
+
+input UpdateQuestionInput {
+  text: String
+  scaleImportantId: Int
+  topicId: Int
+  typeTaskId: Int
 }
 
 input UpdateResponceTemplateInput {

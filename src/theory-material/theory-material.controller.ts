@@ -19,7 +19,7 @@ import {
 import {
   FileExtenderTheoryMaterial,
   FilesExtenderDescription,
-} from 'src/common/interceptors/fileExtenderDescription';
+} from 'src/common/interceptors/fileExtender';
 
 @Controller('theory-material')
 export class TheoryMaterialController {

@@ -9,6 +9,6 @@ export class CreateAnswerInput extends PickType(AnswerModel, [
   @Field(() => String)
   text: string;
 
-  @Field(() => String)
+  @Field(() => String, {nullable: true})
   correct: string;
 }

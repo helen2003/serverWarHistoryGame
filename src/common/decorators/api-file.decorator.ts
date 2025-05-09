@@ -72,7 +72,7 @@ export function ApiOneFileTheoryMaretial() {
           usage: {
             type: 'string',
           },
-          id: {
+          idSubtopic: {
             type: 'string',
           },
         },

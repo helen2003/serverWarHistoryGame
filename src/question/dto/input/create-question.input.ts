@@ -29,6 +29,6 @@ export class CreateQuestionInput extends PickType(QuestionModel, [
   @Field(() => [CreateAnswerInput])
   Answer: CreateAnswerInput[];
 
-  @Field(() => [CreateResponceTemplateInput])
+  @Field(() => [CreateResponceTemplateInput], {nullable: 'itemsAndList'})
   ResponceTemplate?: CreateResponceTemplateInput[];
 }

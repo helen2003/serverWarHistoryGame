@@ -1,16 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
 import * as path from 'path';
+import * as uuid from 'uuid';
+import EmptyMessage from './ImageShow';
 
-const dynamicImport = async (packageName: string) =>
+export const dynamicImport = async (packageName: string) =>
   new Function(`return import('${packageName}')`)();
-
-// const uploadModule = await dynamicImport('@adminjs/upload');
-// const uploadFeature = uploadModule.default;
-
-// const adminjs = await dynamicImport('adminjs');
-// const { ComponentLoader } = adminjs;
-// const componentLoader = new ComponentLoader();
 
 const DEFAULT_ADMIN = {
   email: 'admin@example.com',
@@ -24,240 +19,360 @@ const authenticate = async (email: string, password: string) => {
   return null;
 };
 
-dynamicImport('adminjs').then(({ AdminJS }) =>
-  dynamicImport('@adminjs/prisma').then(({ Database, Resource }) => {
-    AdminJS.registerAdapter({ Database, Resource });
-  }),
-);
+// dynamicImport('adminjs').then(({ AdminJS }) =>
+//   dynamicImport('@adminjs/prisma').then(({ Database, Resource }) => {
+//     AdminJS.registerAdapter({ Database, Resource });
+//   }),
+// );
+
+const newFileName = (name: string) => {
+  let file_extension = name.slice(
+    (Math.max(0, name.lastIndexOf('.')) || Infinity) + 1,
+  );
+  const fileNameNew = uuid.v4() + `.${file_extension}`;
+  return `${fileNameNew}`;
+};
 
 @Module({
   imports: [
     dynamicImport('@adminjs/nestjs').then(({ AdminModule }) =>
       AdminModule.createAdminAsync({
-        useFactory: () =>
-          dynamicImport('@adminjs/prisma').then(({ getModelByName }) => {
-            const prisma = new PrismaService();
-            return {
-              adminJsOptions: {
-                rootPath: '/admin',
-                resources: [
-                  {
-                    resource: {
-                      model: getModelByName('Rank'),
-                      client: prisma,
-                    },
-                    options: {},
+        useFactory: async () => {
+          const { AdminJS } = await dynamicImport('adminjs');
+          const { Database, Resource } = await dynamicImport('@adminjs/prisma');
+          const { getModelByName } = await dynamicImport('@adminjs/prisma');
+          const prisma = new PrismaService();
+          const { default: uploadFileFeature } =
+            await dynamicImport('@adminjs/upload');
+
+          const stroka = '<p>Пусто</p>';
+
+          const componentLoader = AdminJS.__unsafe_staticComponentLoader;
+
+          componentLoader.add('imageShow', './ImageShow');
+          componentLoader.add('imageList', './ImageList');
+
+          AdminJS.registerAdapter({ Database, Resource });
+
+          return {
+            adminJsOptions: {
+              rootPath: '/admin',
+              resources: [
+                {
+                  resource: {
+                    model: getModelByName('Reward'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('User'),
-                      client: prisma,
+                  options: {
+                    properties: {
+                      description: {
+                        type: 'textarea',
+                        isSortable: false,
+                      },
+                      file: {
+                        isVisible: { list: true, edit: true, show: true },
+                        components: {
+                          show: 'imageShow',
+                          list: 'imageList',
+                        },
+                      },
                     },
-                    options: {},
                   },
-                  {
-                    resource: {
-                      model: getModelByName('Disciplina'),
-                      client: prisma,
+                  features: [
+                    uploadFileFeature({
+                      componentLoader,
+                      provider: {
+                        local: {
+                          bucket: path.resolve(__dirname, '../..', 'static'),
+                          opts: {
+                            baseUrl: '/static',
+                          },
+                        },
+                      },
+                      properties: {
+                        key: 'url',
+                      },
+                      uploadPath: (record, filename) => {
+                        return `${newFileName(filename)}`;
+                      },
+                      validation: {
+                        mimeTypes: ['image/png', 'image/jpeg'],
+                      },
+                    }),
+                  ],
+                },
+                {
+                  resource: {
+                    model: getModelByName('Rank'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('User'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Disciplina'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Topic'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Subtopic'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('TheoryMaterial'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('PracticMaterial'),
+                    client: prisma,
+                  },
+                  options: {
+                    properties: {
+                      file: {
+                        isVisible: { list: true, edit: true, show: true },
+                        components: {
+                          show: 'imageShow',
+                          list: 'imageList',
+                        },
+                      },
                     },
-                    options: {},
                   },
-                  {
-                    resource: {
-                      model: getModelByName('Topic'),
-                      client: prisma,
+                  features: [
+                    uploadFileFeature({
+                      componentLoader,
+                      provider: {
+                        local: {
+                          bucket: path.resolve(__dirname, '../..', 'static'),
+                          opts: {
+                            baseUrl: '/static',
+                          },
+                        },
+                      },
+                      properties: {
+                        key: 'url',
+                      },
+                      uploadPath: (record, filename) => {
+                        return `${newFileName(filename)}`;
+                      },
+                      validation: {
+                        mimeTypes: ['image/png', 'image/jpeg'],
+                      },
+                    }),
+                  ],
+                },
+                {
+                  resource: {
+                    model: getModelByName('TypeFile'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('TypeTask'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('TypeMiniGame'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ScaleImportant'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ScaleRecognition'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ModelNS'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('TypeReward'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Achievement'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Question'),
+                    client: prisma,
+                  },
+                  options: {
+                    properties: {
+                      text: {
+                        type: 'textarea',
+                        isSortable: false,
+                        isTitle: true,
+                      },
                     },
-                    options: {},
                   },
-                  {
-                    resource: {
-                      model: getModelByName('Subtopic'),
-                      client: prisma,
+                },
+                {
+                  resource: {
+                    model: getModelByName('Testing'),
+                    client: prisma,
+                  },
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Answer'),
+                    client: prisma,
+                  },
+                  options: {
+                    properties: {
+                      correct: {
+                        description:
+                          'В случае типа викторины указывать только true или false',
+                      },
+                      text: {
+                        isTitle: true,
+                      },
                     },
-                    options: {},
                   },
-                  {
-                    resource: {
-                      model: getModelByName('TheoryMaterial'),
-                      client: prisma,
+                },
+                {
+                  resource: {
+                    model: getModelByName('FileAnswer'),
+                    client: prisma,
+                  },
+                  options: {
+                    properties: {
+                      file: {
+                        isVisible: { list: true, edit: true, show: true },
+                        components: {
+                          show: 'imageShow',
+                          list: 'imageList',
+                        },
+                      },
                     },
-                    options: {},
                   },
-                  {
-                    resource: {
-                      model: getModelByName('PracticMaterial'),
-                      client: prisma,
-                    },
-                    options: {},
+                  features: [
+                    uploadFileFeature({
+                      componentLoader,
+                      provider: {
+                        local: {
+                          bucket: path.resolve(__dirname, '../..', 'static'),
+                          opts: {
+                            baseUrl: '/static',
+                          },
+                        },
+                      },
+                      properties: {
+                        key: 'url',
+                      },
+                      uploadPath: (record, filename) => {
+                        return `${newFileName(filename)}`;
+                      },
+                      validation: {
+                        mimeTypes: ['image/png', 'image/jpeg'],
+                      },
+                    }),
+                  ],
+                },
+                {
+                  resource: {
+                    model: getModelByName('ResponceTesting'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('TypeFile'),
-                      client: prisma,
-                    },
-                    options: {},
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ResponceTemplate'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('TypeTask'),
-                      client: prisma,
-                    },
-                    options: {},
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ResultRecognition'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('TypeMiniGame'),
-                      client: prisma,
-                    },
-                    options: {},
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('ParameterNS'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('ScaleImportant'),
-                      client: prisma,
-                    },
-                    options: {},
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('CalculationNS'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('ScaleRecognition'),
-                      client: prisma,
-                    },
-                    options: {},
+                  options: {},
+                },
+                {
+                  resource: {
+                    model: getModelByName('Rating'),
+                    client: prisma,
                   },
-                  {
-                    resource: {
-                      model: getModelByName('ModelNS'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('TypeReward'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Reward'),
-                      client: prisma,
-                    },
-                    options: {},
-                    // features: [
-                    //   uploadFeature({
-                    //     provider: {
-                    //       local: {
-                    //         path: path.resolve(__dirname, '../..', 'static'),
-                    //         baseUrl: '/static',
-                    //       },
-                    //     },
-                    //     properties: {
-                    //       url: {
-                    //         label: 'Изображение',
-                    //         isSortable: true,
-                    //         isVisible: {
-                    //           list: true,
-                    //           show: true,
-                    //           edit: true,
-                    //         },
-                    //       },
-                    //     },
-                    //   }),
-                    // ],
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Achievement'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Question'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Testing'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Answer'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('FileAnswer'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('ResponceTesting'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('ResponceTemplate'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('ResultRecognition'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('ParameterNS'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('CalculationNS'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                  {
-                    resource: {
-                      model: getModelByName('Rating'),
-                      client: prisma,
-                    },
-                    options: {},
-                  },
-                ],
-              },
-              auth: {
-                authenticate,
-                cookieName: 'adminjs',
-                cookiePassword: 'secret',
-              },
-              sessionOptions: {
-                resave: true,
-                saveUninitialized: true,
-                secret: 'secret',
-              },
-            };
-          }),
+                  options: {},
+                },
+              ],
+              componentLoader: componentLoader,
+            },
+            auth: {
+              authenticate,
+              cookieName: 'adminjs',
+              cookiePassword: 'secret',
+            },
+            sessionOptions: {
+              resave: true,
+              saveUninitialized: true,
+              secret: 'secret',
+            },
+          };
+        },
       }),
     ),
   ],

@@ -12,7 +12,7 @@ export class FileExtenderTheoryMaterial implements NestInterceptor {
     const req = context.switchToHttp().getRequest();
     req.file['description'] = req.body.description;
     req.file['usage'] = req.body.usage === 'true';
-    req.file['id'] = Number(req.body.id);
+    req.file['id'] = Number(req.body.idSubtopic);
     return next.handle();
   }
 }
