@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { Answer, Question } from '@prisma/client';
 import { UpdateAnswerInput } from './dto/input/update-answer.input';
+import { UpdateAnswerModel } from './model/update.model';
 
 @Injectable()
 export class AnswerService {
@@ -13,5 +14,17 @@ export class AnswerService {
     });
   }
 
-  
+  async update(
+    updateAnswerData: UpdateAnswerInput,
+  ): Promise<UpdateAnswerModel> {
+    const idArray = updateAnswerData.answerData.map((data) => data.id);
+    return this.prisma.answer.updateMany({
+      where: {
+        id: { in: idArray },
+      },
+      data: {
+        ...updateAnswerData.answerData,
+      },
+    });
+  }
 }

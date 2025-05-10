@@ -206,6 +206,10 @@ type UpdateTypeTaskModel {
   count: Int!
 }
 
+type UpdateAnswerModel {
+  count: Int!
+}
+
 type UpdateResponceTemplateModel {
   count: Int!
 }
@@ -260,6 +264,7 @@ type Mutation {
   createTypeTask(name: String!): TypeTaskModel!
   updateTypeTask(name: String!, id: Int!): UpdateTypeTaskModel!
   deleteTypeTask(id: Int!): TypeTaskModel!
+  updateAnswer(updateAnswerData: UpdateAnswerInput!): UpdateAnswerModel!
   deleteFileAnswer(id: Int!): FileAnswerModel!
   updateResponceTemplate(updateResponceTemplateData: UpdateResponceTemplateInput!): UpdateResponceTemplateModel!
   deleteResponceTemplate(id: Int!, questionId: Int!): ResponceTemplateModel!
@@ -312,6 +317,17 @@ input UpdateQuestionInput {
   scaleImportantId: Int
   topicId: Int
   typeTaskId: Int
+}
+
+input UpdateAnswerInput {
+  answerData: [UpdateAnswer!]!
+  typeMiniGameId: Int!
+}
+
+input UpdateAnswer {
+  id: Int!
+  text: String!
+  correct: String
 }
 
 input UpdateResponceTemplateInput {

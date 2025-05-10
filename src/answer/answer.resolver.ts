@@ -12,6 +12,9 @@ import { Answer, FileAnswer } from '@prisma/client';
 import { UpdateAnswerInput } from './dto/input/update-answer.input';
 import { FileAnswerModel } from '../file-answer/model/file-answer.model';
 import { FileAnswerService } from '../file-answer/file-answer.service';
+import { UsePipes } from '@nestjs/common';
+import { AnswerUpdateValidationPipe } from 'src/common/pipes/answer-update.pipes';
+import { UpdateAnswerModel } from './model/update.model';
 
 @Resolver(() => AnswerModel)
 export class AnswerResolver {
@@ -24,5 +27,13 @@ export class AnswerResolver {
   getFileAnswer(@Parent() answer: AnswerModel): Promise<FileAnswer[]> {
     const { id } = answer;
     return this.fileAnswerService.getAll(id);
+  }
+
+  @Mutation(() => UpdateAnswerModel)
+  @UsePipes(new AnswerUpdateValidationPipe())
+  updateAnswer(
+    @Args('updateAnswerData') updateAnswerInput: UpdateAnswerInput,
+  ): Promise<UpdateAnswerModel> {
+    return this.answerService.update(updateAnswerInput);
   }
 }
