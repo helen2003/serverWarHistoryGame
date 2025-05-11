@@ -60,7 +60,7 @@ export class SubtopicResolver {
   }
 
     @Mutation(() => UpdateSubtopicModel)
-    updateTopic(
+    updateSubtopic(
       @Args('updateSubtopicData') updateSubtopicData: UpdateSubtopicInput,
     ): Promise<Subtopic> {
       return this.subtopicService.update(updateSubtopicData);
