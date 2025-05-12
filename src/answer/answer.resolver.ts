@@ -23,10 +23,10 @@ export class AnswerResolver {
     private fileAnswerService: FileAnswerService,
   ) {}
 
-  @ResolveField('FileAnswer', () => [FileAnswerModel])
-  getFileAnswer(@Parent() answer: AnswerModel): Promise<FileAnswer[]> {
+  @ResolveField('FileAnswer', () => FileAnswerModel, { nullable: true })
+  getFileAnswer(@Parent() answer: AnswerModel): Promise<FileAnswer> {
     const { id } = answer;
-    return this.fileAnswerService.getAll(id);
+    return this.fileAnswerService.getAOne(id);
   }
 
   @Mutation(() => UpdateAnswerModel)

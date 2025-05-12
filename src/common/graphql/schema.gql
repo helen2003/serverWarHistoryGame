@@ -116,7 +116,7 @@ type AnswerModel {
   text: String!
   correct: String
   questionId: Int!
-  FileAnswer: [FileAnswerModel!]!
+  FileAnswer: FileAnswerModel
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -253,9 +253,10 @@ type Mutation {
   updateTypeReward(name: String!, id: Int!): UpdateTypeRewardModel!
   deleteTypeReward(id: Int!): TypeRewardModel!
   createTopic(name: String!, disciplinaId: Int): TopicModel!
-  updateTopic(updateSubtopicData: UpdateSubtopicInput!): UpdateSubtopicModel!
+  updateTopic(updateTopicData: UpdateTopicInput!): UpdateTopicModel!
   deleteTopic(id: Int!): TopicModel!
   createSubtopic(name: String!, topicId: Int): SubtopicModel!
+  updateSubtopic(updateSubtopicData: UpdateSubtopicInput!): UpdateSubtopicModel!
   deleteSubtopic(id: Int!): SubtopicModel!
   deleteTheoryMaterial(id: Int!): TheoryMaterialModel!
   createQuestion(createQuestionData: CreateQuestionInput!): QuestionModel!
@@ -285,6 +286,12 @@ input CreateUpdateRewardInput {
   name: String!
   description: String!
   typeRewardId: Int!
+}
+
+input UpdateTopicInput {
+  name: String
+  disciplinaId: Int
+  id: Int!
 }
 
 input UpdateSubtopicInput {

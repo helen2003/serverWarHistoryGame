@@ -16,8 +16,8 @@ export class AnswerModel implements Answer {
   @Field(() => Int)
   questionId: number;
 
-  @Field(() => [FileAnswerModel])
-  FileAnswer: FileAnswerModel[];
+  @Field(() => FileAnswerModel, { nullable: true })
+  FileAnswer: FileAnswerModel;
 
   @Field(() => Date)
   created_at: Date;

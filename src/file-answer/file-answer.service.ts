@@ -48,6 +48,12 @@ export class FileAnswerService {
     });
   }
 
+  async getAOne(answerId: number): Promise<FileAnswer> {
+    return this.prisma.fileAnswer.findFirst({
+      where: { answerId: answerId },
+    });
+  }
+
   async delete(id: number) {
     return this.prisma.fileAnswer.delete({
       where: {
